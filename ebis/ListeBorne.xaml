@@ -11,7 +11,14 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="borneList" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+
+       
+        <StackPanel>
+            <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
+            <ListBox x:Name="borneList" />
+        </StackPanel>
+            
+
 
     </Grid>
 </Window>

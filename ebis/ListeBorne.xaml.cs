@@ -20,14 +20,30 @@ namespace Ebis
     /// </summary>
     public partial class ListeBorne : Window
     {
+
+        private MongoDatabase mongoDatabase;
+
         public ListeBorne()
         {
             InitializeComponent();
-            MongoDatabase mongoDatabase = new MongoDatabase();
+            mongoDatabase = new MongoDatabase();
 
-
-            mongoDatabase.recupererListBorne().ForEach(item => borneList.Items.Add(item.GetElement));
+            mongoDatabase.recupererListBorne().ForEach(item => borneList.Items.Add(item["station"]["adresseRue"].AsString));
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (!String.IsNullOrEmpty(recherche.Text))
+            {
+                borneList.Items.Clear();
+                mongoDatabase.recupererListBorne(recherche.Text).ForEach(item => borneList.Items.Add(item["station"]["adresseRue"].AsString));
+            } else
+            {
+                borneList.Items.Clear();
+                mongoDatabase.recupererListBorne().ForEach(item => borneList.Items.Add(item["station"]["adresseRue"].AsString));
+            }
+           
+        }
     }
 }

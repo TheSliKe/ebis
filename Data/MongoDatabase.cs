@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -25,5 +26,15 @@ namespace Data
 
         }
 
+        public List<BsonDocument> recupererListBorne(string sender)
+        {
+            var borneCollection = db.GetCollection<BsonDocument>("borne");
+
+            var regexPattern = @"\b[" + sender + "]\\w+";
+
+            var filter = Builders<BsonDocument>.Filter.Regex("station.adresseVille", new BsonRegularExpression(new Regex(regexPattern)));
+           
+            return borneCollection.Find(filter).ToList();
+        }
     }
 }
