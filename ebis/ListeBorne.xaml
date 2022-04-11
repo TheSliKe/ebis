@@ -12,7 +12,6 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="borneList" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="borneList_SelectionChanged"/>
 
 
         <m:Map x:Name="borneMap" CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
