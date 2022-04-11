@@ -24,7 +24,7 @@
        
         <StackPanel>
             <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
-            <ListBox x:Name="borneList" />
+            <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
         </StackPanel>
             
 

@@ -31,9 +31,12 @@ namespace Ebis
             mongoDatabase = new MongoDatabase();
 
             List<BsonDocument> listeBorne = mongoDatabase.recupererListBorne();
-            
+
             listeBorne.ForEach(item => {
-                borneList.Items.Add(item["station"]["adresseRue"].AsString);
+                ListBoxItem l = new();
+                l.Tag = item;
+                l.Content = item["station"]["adresseRue"].AsString;
+                borneList.Items.Add(l);
 
                 double latitude = Convert.ToDouble(item["station"]["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
                 double longitude = Convert.ToDouble(item["station"]["longitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
@@ -62,6 +65,10 @@ namespace Ebis
 
         private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            object d = borneList.SelectedItem;
+            
+            Console.WriteLine(d);
+
             //TODO Au click: zoom sur la map
             //Location loc = (latitude, longitude);
             //borneMap.SetView(loc, 12);
