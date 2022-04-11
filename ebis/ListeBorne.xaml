@@ -6,10 +6,10 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:local="clr-namespace:Ebis"
         mc:Ignorable="d"
-        Title="ListeBorne" Height="450" Width="800">
+        Title="ListeBorne" Height="720" Width="1280">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -24,7 +24,9 @@
        
         <StackPanel>
             <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
+            <Button Content="Info borne selectionnée" IsEnabled="False"/>
             <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
+            
         </StackPanel>
             
 
