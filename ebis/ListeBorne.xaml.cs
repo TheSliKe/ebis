@@ -65,13 +65,21 @@ namespace Ebis
 
         private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object d = borneList.SelectedItem;
             
-            Console.WriteLine(d);
+            if (borneList.SelectedItem != null)
+            {
+                string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
 
-            //TODO Au click: zoom sur la map
-            //Location loc = (latitude, longitude);
-            //borneMap.SetView(loc, 12);
+                BsonDocument document = BsonDocument.Parse(tagJson);
+
+                Location loc = new Location(document["station"]["latitude"].ToDouble(), document["station"]["longitude"].ToDouble());
+                borneMap.SetView(loc, 12);
+
+
+            }
+
         }
+
     }
+
 }
