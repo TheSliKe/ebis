@@ -36,5 +36,11 @@ namespace Ebis
             });
         }
 
+        private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //TODO Au click: zoom sur la map
+            //Location loc = (latitude, longitude);
+            //borneMap.SetView(loc, 12);
+        }
     }
 }
