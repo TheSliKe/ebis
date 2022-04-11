@@ -1,4 +1,5 @@
 ﻿using Data;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,15 @@ namespace Ebis
         {
             InitializeComponent();
             MongoDatabase mongoDatabase = new MongoDatabase();
-
-
-            mongoDatabase.recupererListBorne().ForEach(item => borneList.Items.Add(item.GetElement));
+            
+            mongoDatabase.recupererListBorne().ForEach(item => {
+                borneList.Items.Add(item);
+                double latitude = Convert.ToDouble(item["station"]["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
+                double longitude = Convert.ToDouble(item["station"]["longitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
+                Pushpin pin = new();
+                pin.Location = new Location(latitude, longitude);
+                borneMap.Children.Add(pin);
+            });
         }
 
     }
