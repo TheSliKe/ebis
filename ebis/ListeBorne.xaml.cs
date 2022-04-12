@@ -85,6 +85,22 @@ namespace Ebis
 
         }
 
+        private void borneInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (borneList.SelectedItem != null)
+            {
+
+                string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
+                BsonDocument document = BsonDocument.Parse(tagJson);
+
+                InfoBornePopup infoBornePopup = new InfoBornePopup(document);
+                infoBornePopup.Show();
+            }
+
+
+        }
+
         private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -103,17 +119,12 @@ namespace Ebis
 
         }
 
-        }
-
         private void initialiseTechnicienTab()
         {
             List<BsonDocument> listeTechnicien = mongoDatabase.recupererListBorne();
 
             listeTechnicien.ForEach(item => {
-                ListBoxItem l = new();
-                l.Tag = item;
-                l.Content = item["station"]["adresseRue"].AsString;
-                borneList.Items.Add(l);
+               
             });
             technicienNom.Text = "TEST";
             technicienMatricule.Text = "TEST";
@@ -133,21 +144,6 @@ namespace Ebis
         private void journalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
         private void journalOperationList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
     }
-        private void borneInfoButton_Click(object sender, RoutedEventArgs e)
-        {   
-
-            if (borneList.SelectedItem != null)
-            {
-
-                string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
-                BsonDocument document = BsonDocument.Parse(tagJson);
-
-                InfoBornePopup infoBornePopup = new InfoBornePopup(document);
-                infoBornePopup.Show();
-            }
-               
-
-        }
-    }
-
+        
 }
+

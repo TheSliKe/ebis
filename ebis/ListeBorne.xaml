@@ -28,8 +28,6 @@
 
                     <StackPanel>
                         <TextBox x:Name="borneRecherche" TextWrapping="Wrap" Width="120" TextChanged="borneRecherche_TextChanged"/>
-                        <Button Content="Info borne selectionnée" IsEnabled="False"/>
-                        <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
                         <Button  x:Name="borneInfoButton" Content="Info borne selectionnée" IsEnabled="False" Click="borneInfoButton_Click"/>
                         <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
                     </StackPanel>
