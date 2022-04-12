@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:Ebis"
         mc:Ignorable="d"
         Title="ListeBorne" Height="720" Width="1280">
+    
     <Grid>
         <TabControl TabStripPlacement="Bottom">
             <TabItem Header="Bornes">
@@ -16,6 +17,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+                    
 
                     <m:Map x:Name="borneMap" CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
                 Center="46.3790485,0.6430849"
@@ -27,11 +29,12 @@
 
                     <StackPanel>
                         <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
-                        <Button Content="Info borne selectionnée" IsEnabled="False"/>
+                        <Button  x:Name="borneInfoButton" Content="Info borne selectionnée" IsEnabled="False" Click="borneInfoButton_Click"/>
                         <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
 
                     </StackPanel>
                 </Grid>
+
             </TabItem>
             <TabItem Header="Techniciens" />
         </TabControl>

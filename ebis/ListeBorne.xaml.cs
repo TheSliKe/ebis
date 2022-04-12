@@ -1,4 +1,5 @@
 ﻿using Data;
+using ebis;
 using Microsoft.Maps.MapControl.WPF;
 using MongoDB.Bson;
 using System;
@@ -36,6 +37,7 @@ namespace Ebis
                 ListBoxItem l = new();
                 l.Tag = item;
                 l.Content = item["station"]["adresseRue"].AsString;
+                l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click)); 
                 borneList.Items.Add(l);
 
                 double latitude = Convert.ToDouble(item["station"]["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
@@ -58,6 +60,7 @@ namespace Ebis
                     ListBoxItem l = new();
                     l.Tag = item;
                     l.Content = item["station"]["adresseRue"].AsString;
+                    l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
                     borneList.Items.Add(l);
                 });
             }
@@ -69,9 +72,12 @@ namespace Ebis
                     ListBoxItem l = new();
                     l.Tag = item;
                     l.Content = item["station"]["adresseRue"].AsString;
+                    l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
                     borneList.Items.Add(l);
                 });
             }
+
+            borneInfoButton.IsEnabled = false;
 
         }
 
@@ -87,11 +93,27 @@ namespace Ebis
                 Location loc = new Location(document["station"]["latitude"].ToDouble(), document["station"]["longitude"].ToDouble());
                 borneMap.SetView(loc, 12);
 
+                borneInfoButton.IsEnabled = true;
 
             }
 
         }
 
+        private void borneInfoButton_Click(object sender, RoutedEventArgs e)
+        {   
+
+            if (borneList.SelectedItem != null)
+            {
+
+                string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
+                BsonDocument document = BsonDocument.Parse(tagJson);
+
+                InfoBornePopup infoBornePopup = new InfoBornePopup(document);
+                infoBornePopup.Show();
+            }
+               
+
+        }
     }
 
 }
