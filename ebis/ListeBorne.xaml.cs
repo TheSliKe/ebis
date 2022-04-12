@@ -53,12 +53,24 @@ namespace Ebis
             if (!String.IsNullOrEmpty(recherche.Text))
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne(recherche.Text).ForEach(item => borneList.Items.Add(item["station"]["adresseRue"].AsString));
+                mongoDatabase.recupererListBorne(recherche.Text).ForEach(item =>
+                {
+                    ListBoxItem l = new();
+                    l.Tag = item;
+                    l.Content = item["station"]["adresseRue"].AsString;
+                    borneList.Items.Add(l);
+                });
             }
             else
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne().ForEach(item => borneList.Items.Add(item["station"]["adresseRue"].AsString));
+                mongoDatabase.recupererListBorne().ForEach(item => 
+                {
+                    ListBoxItem l = new();
+                    l.Tag = item;
+                    l.Content = item["station"]["adresseRue"].AsString;
+                    borneList.Items.Add(l);
+                });
             }
 
         }
