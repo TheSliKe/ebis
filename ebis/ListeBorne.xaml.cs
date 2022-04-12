@@ -30,7 +30,12 @@ namespace Ebis
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
+            initialiseBorneTab();
+            initialiseTechnicienTab();
+        }
 
+        private void initialiseBorneTab()
+        {
             List<BsonDocument> listeBorne = mongoDatabase.recupererListBorne();
 
             listeBorne.ForEach(item => {
@@ -46,16 +51,15 @@ namespace Ebis
                 pin.Location = new Location(latitude, longitude);
                 borneMap.Children.Add(pin);
             });
-
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void borneRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            if (!String.IsNullOrEmpty(recherche.Text))
+            if (!String.IsNullOrEmpty(borneRecherche.Text))
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne(recherche.Text).ForEach(item =>
+                mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item =>
                 {
                     ListBoxItem l = new();
                     l.Tag = item;
@@ -99,6 +103,36 @@ namespace Ebis
 
         }
 
+        }
+
+        private void initialiseTechnicienTab()
+        {
+            List<BsonDocument> listeTechnicien = mongoDatabase.recupererListBorne();
+
+            listeTechnicien.ForEach(item => {
+                ListBoxItem l = new();
+                l.Tag = item;
+                l.Content = item["station"]["adresseRue"].AsString;
+                borneList.Items.Add(l);
+            });
+            technicienNom.Text = "TEST";
+            technicienMatricule.Text = "TEST";
+            technicienAdresse.Text = "TEST";
+            technicienVille.Text = "TEST";
+            technicienCodePostal.Text = "TEST";
+            technicienSecteur.Text = "TEST";
+            technicienTelephone.Text = "TEST";
+
+        }
+        private void technicienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void technicienList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+        private void journalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void journalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+        private void journalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void journalIncidentList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+        private void journalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void journalOperationList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+    }
         private void borneInfoButton_Click(object sender, RoutedEventArgs e)
         {   
 
