@@ -6,8 +6,18 @@
              xmlns:local="clr-namespace:Ebis.Tabs"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <StackPanel Margin="0,10,0,10">
-        <TextBox x:Name="journalOperationRecherche" TextWrapping="Wrap" Width="120" TextChanged="journalOperationRecherche_TextChanged"/>
-        <ListBox x:Name="journalOperationList" MinHeight="100" SelectionChanged="journalOperationList_SelectionChanged"/>
-    </StackPanel>
+    <Grid Margin="0,34,0,0">
+        <DataGrid Name="dgJournalOperation" AutoGenerateColumns="False" Margin="90,100,90,60">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Borne" Binding="{Binding Borne}" />
+                <DataGridTextColumn Header="Type de charge" Binding="{Binding TypeCharge}" />
+                <DataGridTextColumn Header="Date de debut" Binding="{Binding DateDebut}" />
+                <DataGridTextColumn Header="date de fin" Binding="{Binding DateFin}" />
+                <DataGridTextColumn Header="kwh consomé" Binding="{Binding KwhConsomer}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <TextBox HorizontalAlignment="Left" Margin="938,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="208" Height="26"/>
+
+    </Grid>
 </UserControl>

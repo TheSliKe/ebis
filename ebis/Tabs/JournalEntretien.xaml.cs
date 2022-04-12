@@ -71,9 +71,10 @@ namespace Ebis.Tabs
             }
 
         }
-            private void journalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e) 
-        {
 
+        private void journalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        {
+            borneMapEntretien.Children.Clear();
             listeBorneConcerne.Items.Clear();
             listElementVerifier.Items.Clear();
             listElementRemplacer.Items.Clear();

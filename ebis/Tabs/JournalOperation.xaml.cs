@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Data;
+using Ebis.Object;
+using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,36 @@ namespace Ebis.Tabs
     /// </summary>
     public partial class JournalOperation : UserControl
     {
+        private MongoDatabase mongoDatabase;
+
         public JournalOperation()
         {
             InitializeComponent();
+            mongoDatabase = new MongoDatabase();
+            InitialiseJournalOperationDg();
+        }
+
+        private void InitialiseJournalOperationDg() 
+        {
+
+            List<BsonDocument> operationDb = mongoDatabase.recupererListOperation();
+
+            List<Operation> operations = new List<Operation>();
+
+            foreach (var line in operationDb)
+            {
+                operations.Add(new Operation()
+                {
+                    Borne = line["borne"].ToString(),
+                    TypeCharge = line["typeCharge"].ToString(),
+                    DateDebut = line["dateHeureDebut"].ToUniversalTime(),
+                    DateFin = line["dateHeureFin"].ToUniversalTime(),
+                    KwhConsomer = line["nbKwHeures"].ToString()
+                });
+            }
+
+            dgJournalOperation.ItemsSource = operations;
+
         }
 
         private void journalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
