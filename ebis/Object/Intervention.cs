@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace Ebis.Object
         public string typeInter { get; set; }
         public string dateDebut { get; set; }
         public string dateFin { get; set; }
-
-
+        public string detailInter { get; set; }
+        public string secteur { get; set; }
+        public string technicien { get; set; }
+        public string borne { get; set; }
     }
 }

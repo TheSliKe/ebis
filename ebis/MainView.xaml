@@ -26,6 +26,9 @@
         <TabItem Header="Journal des opérations">
             <tabs:JournalOperation/>
         </TabItem>
+        <TabItem Header="Journal des interventions">
+            <tabs:JournalIntervention/>
+        </TabItem>
     </TabControl>
 
 </Window>

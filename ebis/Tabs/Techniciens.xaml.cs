@@ -28,8 +28,6 @@ namespace Ebis.Tabs
                 l.Content = item["nom"].AsString + " " + item["prenom"].AsString;
                 technicienList.Items.Add(l);
             });
-
-
         }
         private void technicienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
         private void technicienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
