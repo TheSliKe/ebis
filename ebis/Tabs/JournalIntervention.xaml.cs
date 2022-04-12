@@ -13,9 +13,9 @@ namespace Ebis.Tabs
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            InitialiseTechnicienTab();
+            InitialiseInterventionTab();
         }
-        private void InitialiseTechnicienTab()
+        private void InitialiseInterventionTab()
         {
             List<BsonDocument> listeIntervention= mongoDatabase.recupererListIntervention();
 
