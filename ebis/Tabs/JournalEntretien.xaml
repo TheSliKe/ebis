@@ -2,11 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              xmlns:local="clr-namespace:Ebis.Tabs"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
@@ -16,12 +20,32 @@
             <TextBox x:Name="journalEntretienRecherche" TextWrapping="Wrap" Width="120" TextChanged="journalEntretienRecherche_TextChanged"/>
             <ListBox x:Name="journalEntretienList" MinHeight="100" SelectionChanged="journalEntretienList_SelectionChanged"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="10,10,10,10">
-            <TextBlock x:Name="journalEntretienNumeroBorne"/>
-            <TextBlock x:Name="journalEntretienLocalisation"/>
-            <TextBlock Text="Elements Vérifiés" TextWrapping="Wrap"/>
-            <TextBlock Text="Elements remplacés" TextWrapping="Wrap"/>
+        <Label Grid.Column="1" Content="Bornes concernés :" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listeBorneConcerne" Grid.Column="1" Margin="50,61,734,507" SelectionChanged="journalEntretienList_SelectionChangedBorneConcerne"/>
 
-        </StackPanel>
+        <Label Grid.Column="1" Content="Technicien : " HorizontalAlignment="Left" Margin="50,240,0,0" VerticalAlignment="Top"/>
+
+        <Label Grid.Column="1" Content="Matricule :" HorizontalAlignment="Left" Margin="83,266,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="matricule" Grid.Column="1" HorizontalAlignment="Left" Margin="148,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Label Grid.Column="1" Content="Nom :" HorizontalAlignment="Left" Margin="83,292,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="nom" Grid.Column="1" HorizontalAlignment="Left" Margin="126,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Label Grid.Column="1" Content="Prenom :" HorizontalAlignment="Left" Margin="83,318,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="140,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <m:Map 
+                        x:Name="borneMapEntretien" 
+                        CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
+                        Center="46.3790485,0.6430849"
+                        Margin="354,43,50,360"
+                        Grid.Column="1"/>
+
+        <Label Grid.Column="1" Content="Element à verifier :" HorizontalAlignment="Left" Margin="117,384,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listElementVerifier" Grid.Column="1" Margin="117,410,681,30"/>
+
+        <Label Grid.Column="1" Content="Element remplacé :" HorizontalAlignment="Left" Margin="376,384,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listElementRemplacer" Grid.Column="1" Margin="376,410,422,30"/>
+
     </Grid>
 </UserControl>

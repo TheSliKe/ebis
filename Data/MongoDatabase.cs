@@ -36,5 +36,12 @@ namespace Data
            
             return borneCollection.Find(filter).ToList();
         }
+
+        public List<BsonDocument> recupererListEntretien()
+        {
+            var entretiensCollection = db.GetCollection<BsonDocument>("entretiens");
+
+            return entretiensCollection.Find(new BsonDocument()).ToList();
+        }
     }
 }
