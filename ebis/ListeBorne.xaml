@@ -8,28 +8,32 @@
         mc:Ignorable="d"
         Title="ListeBorne" Height="720" Width="1280">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <TabControl TabStripPlacement="Bottom">
+            <TabItem Header="Bornes">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
 
-        <m:Map x:Name="borneMap" CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
-            Center="46.3790485,0.6430849"
-            Margin="10,10,10,10" 
-            Grid.Column="2">
-           
-        </m:Map>
+                    <m:Map x:Name="borneMap" CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
+                Center="46.3790485,0.6430849"
+                Margin="10,10,10,10" 
+                Grid.Column="2">
 
-       
-        <StackPanel>
-            <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
-            <Button Content="Info borne selectionnée" IsEnabled="False"/>
-            <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
-            
-        </StackPanel>
-            
+                    </m:Map>
 
 
+                    <StackPanel>
+                        <TextBox x:Name="recherche" TextWrapping="Wrap" Width="120" TextChanged="TextBox_TextChanged"/>
+                        <Button Content="Info borne selectionnée" IsEnabled="False"/>
+                        <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Techniciens" />
+        </TabControl>
     </Grid>
 </Window>
