@@ -1,5 +1,4 @@
 ﻿using Data;
-using ebis;
 using Microsoft.Maps.MapControl.WPF;
 using MongoDB.Bson;
 using System;
@@ -14,27 +13,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ebis
+namespace Ebis.Tabs
 {
     /// <summary>
-    /// Logique d'interaction pour ListeBorne.xaml
+    /// Logique d'interaction pour Borne.xaml
     /// </summary>
-    public partial class ListeBorne : Window
+    public partial class Borne : UserControl
     {
-
         private MongoDatabase mongoDatabase;
 
-        public ListeBorne()
+        public Borne()
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            initialiseBorneTab();
-            initialiseTechnicienTab();
+            InitialiseBorneTab();
         }
 
-        private void initialiseBorneTab()
+        private void InitialiseBorneTab()
         {
             List<BsonDocument> listeBorne = mongoDatabase.recupererListBorne();
 
@@ -42,7 +40,7 @@ namespace Ebis
                 ListBoxItem l = new();
                 l.Tag = item;
                 l.Content = item["station"]["adresseRue"].AsString;
-                l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click)); 
+                l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
                 borneList.Items.Add(l);
 
                 double latitude = Convert.ToDouble(item["station"]["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
@@ -71,7 +69,7 @@ namespace Ebis
             else
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne().ForEach(item => 
+                mongoDatabase.recupererListBorne().ForEach(item =>
                 {
                     ListBoxItem l = new();
                     l.Tag = item;
@@ -103,7 +101,7 @@ namespace Ebis
 
         private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
             if (borneList.SelectedItem != null)
             {
                 string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
@@ -118,32 +116,5 @@ namespace Ebis
             }
 
         }
-
-        private void initialiseTechnicienTab()
-        {
-            List<BsonDocument> listeTechnicien = mongoDatabase.recupererListBorne();
-
-            listeTechnicien.ForEach(item => {
-               
-            });
-            technicienNom.Text = "TEST";
-            technicienMatricule.Text = "TEST";
-            technicienAdresse.Text = "TEST";
-            technicienVille.Text = "TEST";
-            technicienCodePostal.Text = "TEST";
-            technicienSecteur.Text = "TEST";
-            technicienTelephone.Text = "TEST";
-
-        }
-        private void technicienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void technicienList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void journalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void journalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void journalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void journalIncidentList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void journalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void journalOperationList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
     }
-        
 }
-

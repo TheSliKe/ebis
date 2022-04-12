@@ -1,0 +1,31 @@
+﻿<Window x:Class="Ebis.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ebis"
+        xmlns:tabs="clr-namespace:Ebis.Tabs"
+        mc:Ignorable="d"
+        Title="MainView" Height="720" Width="1280">
+    <TabControl>
+        <TabItem Header="Tableau De bord">
+            <tabs:TableauDeBord/>
+        </TabItem>
+        <TabItem Header="Bornes">
+            <tabs:Borne/>
+        </TabItem>
+        <TabItem Header="Technicien">
+            <tabs:Techniciens/>
+        </TabItem>
+        <TabItem Header="Journal d'entretiens">
+            <tabs:JournalEntretien/>
+        </TabItem>
+        <TabItem Header="Journal d'incidents">
+            <tabs:JournalIncident/>
+        </TabItem>
+        <TabItem Header="Journal des opérations">
+            <tabs:JournalOperation/>
+        </TabItem>
+    </TabControl>
+
+</Window>

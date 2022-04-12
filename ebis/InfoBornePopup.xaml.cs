@@ -27,7 +27,7 @@ namespace Ebis
             Title = document["station"]["adresseRue"].ToString();
 
             miseEnService.Text = document["dateMiseEnService"].ToString();
-            derniereRevision.Text = document["dateDerniereRévision"].ToString();
+            derniereRevision.Text = document["dateDerniereRevision"].ToString();
 
             adresse.Text = document["station"]["adresseRue"].ToString();
             ville.Text = document["station"]["adresseVille"].ToString();

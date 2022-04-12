@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Ebis.Tabs.Techniciens"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ebis.Tabs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="0,10,0,10">
+            <TextBox x:Name="technicienRecherche" TextWrapping="Wrap" Width="120" TextChanged="technicienRecherche_TextChanged"/>
+            <ListBox x:Name="technicienList" SelectionChanged="technicienList_SelectionChanged"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="10,10,10,10">
+            <TabControl TabStripPlacement="Top">
+                <TabItem Header="Techniciens">
+                    <Grid>
+                        <TextBlock x:Name="technicienNom"/>
+                        <TextBlock x:Name="technicienMatricule"/>
+                        <TextBlock x:Name="technicienAdresse"/>
+                        <TextBlock x:Name="technicienVille"/>
+                        <TextBlock x:Name="technicienCodePostal"/>
+                        <TextBlock x:Name="technicienSecteur"/>
+                        <TextBlock x:Name="technicienTelephone"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Intervention">
+                    <ListBox x:Name="technicienInterventionList" Margin="0,10,0,10"/>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

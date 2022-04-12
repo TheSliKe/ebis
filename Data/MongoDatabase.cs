@@ -14,13 +14,13 @@ namespace Data
 
         public MongoDatabase()
         {
-            mongoClient = new MongoClient("mongodb://localhost:27017/");
-            db = mongoClient.GetDatabase("ebis");
+            mongoClient = new MongoClient("mongodb+srv://ebis:ebis@ebis.03sbd.mongodb.net/");
+            db = mongoClient.GetDatabase("Ebis");
         }
 
         public List<BsonDocument> recupererListBorne()
         {
-            var borneCollection = db.GetCollection<BsonDocument>("borne");
+            var borneCollection = db.GetCollection<BsonDocument>("bornes");
 
             return borneCollection.Find(new BsonDocument()).ToList();
 
@@ -28,7 +28,7 @@ namespace Data
 
         public List<BsonDocument> recupererListBorne(string sender)
         {
-            var borneCollection = db.GetCollection<BsonDocument>("borne");
+            var borneCollection = db.GetCollection<BsonDocument>("bornes");
 
             var regexPattern = @"\b[" + sender + "]\\w+";
 
