@@ -24,7 +24,7 @@ namespace Ebis.Tabs
             listeEntretien.ForEach(item => {
                 ListBoxItem listBoxItem = new();
                 listBoxItem.Tag = item;
-                listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
                 journalEntretienList.Items.Add(listBoxItem);
             });
         }
@@ -38,7 +38,7 @@ namespace Ebis.Tabs
                 {
                     ListBoxItem listBoxItem = new();
                     listBoxItem.Tag = item;
-                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
                     journalEntretienList.Items.Add(listBoxItem);
                 });
             }
@@ -49,7 +49,7 @@ namespace Ebis.Tabs
                 {
                     ListBoxItem listBoxItem = new();
                     listBoxItem.Tag = item;
-                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
                     journalEntretienList.Items.Add(listBoxItem);
                 });
             }
