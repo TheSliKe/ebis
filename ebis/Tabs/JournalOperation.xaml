@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid Margin="0,34,0,0">
-        <DataGrid Name="dgJournalOperation" AutoGenerateColumns="False" Margin="90,100,90,60">
+        <DataGrid Name="dgJournalOperation" AutoGenerateColumns="False" Margin="10,31,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Borne" Binding="{Binding Borne}" />
                 <DataGridTextColumn Header="Type de charge" Binding="{Binding TypeCharge}" />
@@ -17,7 +17,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="journalOperationRecherche" TextChanged="JournalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="938,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" Height="26"/>
+        <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Margin="47,3,651,663"/>
+        <TextBox x:Name="journalOperationRecherche" TextChanged="JournalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="130,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="665" Height="26"/>
 
     </Grid>
 </UserControl>

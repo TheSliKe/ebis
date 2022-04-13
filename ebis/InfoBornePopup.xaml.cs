@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace Ebis
 {
-    /// <summary>
-    /// Logique d'interaction pour InfoBornePopup.xaml
-    /// </summary>
     public partial class InfoBornePopup : Window
     {
         public InfoBornePopup(BsonDocument document)
