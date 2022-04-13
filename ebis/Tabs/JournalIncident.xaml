@@ -8,9 +8,16 @@
              d:DesignHeight="720" d:DesignWidth="1280">
     <StackPanel Margin="0,0,0,10">
         <Grid Height="30">
-            <TextBlock Text="Recherche:" TextWrapping="Wrap" Margin="294,15,915,15" RenderTransformOrigin="0.19,0.52"/>
+            <TextBlock Text="Recherche:" TextWrapping="Wrap" Margin="284,5,-284,-5" />
             <TextBox x:Name="journalIncidentRecherche" TextWrapping="Wrap" Width="540" TextChanged="JournalIncidentRecherche_TextChanged" Height="20"/>
         </Grid>
-        <DataGrid x:Name="interventionDataGrid" MinHeight="100" Height="660" Margin="10,0,10,10"/>
+        <DataGrid x:Name="interventionDataGrid"  AutoGenerateColumns="False" MinHeight="100" Height="669" Margin="10,0,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date de l'incident" Binding="{Binding dateIncident}" />
+                <DataGridTextColumn Header="Borne" Binding="{Binding borne}" />
+                <DataGridTextColumn Header="Type d'incident" Binding="{Binding typeIncidents}" />
+                <DataGridTextColumn Header="Détail de l'incident" Binding="{Binding detailsIncidents}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </StackPanel>
 </UserControl>

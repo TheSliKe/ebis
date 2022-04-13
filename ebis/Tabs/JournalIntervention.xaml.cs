@@ -23,8 +23,8 @@ namespace Ebis.Tabs
                 {
                     numeroInter = item["numeroInter"].ToString(),
                     typeInter = item["typeInter"].ToString(),
-                    dateDebut = item["dateDebut"].ToString(),
-                    dateFin = item["dateFin"].ToString(),
+                    dateDebut = item["dateDebut"].AsDateTime,
+                    dateFin = item["dateFin"].AsDateTime,
                     borne = item["borne"].ToString(),
                     secteur = item["secteur"].ToString(),
                     detailInter = item["detailInter"].ToString(),
@@ -44,8 +44,8 @@ namespace Ebis.Tabs
                     {
                         numeroInter = item["numeroInter"].ToString(),
                         typeInter = item["typeInter"].ToString(),
-                        dateDebut = item["dateDebut"].ToString(),
-                        dateFin = item["dateFin"].ToString(),
+                        dateDebut = item["dateDebut"].AsDateTime,
+                        dateFin = item["dateFin"].AsDateTime,
                         borne = item["borne"].ToString(),
                         secteur = item["secteur"].ToString(),
                         detailInter = item["detailInter"].ToString(),
@@ -64,8 +64,8 @@ namespace Ebis.Tabs
                     {
                         numeroInter = item["numeroInter"].ToString(),
                         typeInter = item["typeInter"].ToString(),
-                        dateDebut = item["dateDebut"].ToString(),
-                        dateFin = item["dateFin"].ToString(),
+                        dateDebut = item["dateDebut"].AsDateTime,
+                        dateFin = item["dateFin"].AsDateTime,
                         borne = item["borne"].ToString(),
                         secteur = item["secteur"].ToString(),
                         detailInter = item["detailInter"].ToString(),
