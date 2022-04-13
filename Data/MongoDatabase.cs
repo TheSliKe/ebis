@@ -65,7 +65,7 @@ namespace Data
         {
             var entretiensCollection = db.GetCollection<BsonDocument>("entretiens");
             var filter = Builders<BsonDocument>.Filter.Or(
-                Builders<BsonDocument>.Filter.Regex("borne.numero", new BsonRegularExpression(new Regex(sender, RegexOptions.IgnoreCase))),
+                Builders<BsonDocument>.Filter.Regex("borne", new BsonRegularExpression(new Regex(sender, RegexOptions.IgnoreCase))),
                 Builders<BsonDocument>.Filter.Regex("technicien.matricule", new BsonRegularExpression(new Regex(sender, RegexOptions.IgnoreCase))),
                 Builders<BsonDocument>.Filter.Regex("technicien.nom", new BsonRegularExpression(new Regex(sender, RegexOptions.IgnoreCase))),
                 Builders<BsonDocument>.Filter.Regex("technicien.prenom", new BsonRegularExpression(new Regex(sender, RegexOptions.IgnoreCase)))

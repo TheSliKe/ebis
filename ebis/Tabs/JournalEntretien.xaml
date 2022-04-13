@@ -17,36 +17,38 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Margin="0,10,0,10">
-            <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Width="118"/>
-            <TextBox x:Name="journalEntretienRecherche" TextWrapping="Wrap" Width="120" TextChanged="JournalEntretienRecherche_TextChanged"/>
-            <ListBox x:Name="journalEntretienList" MinHeight="100" SelectionChanged="JournalEntretienList_SelectionChanged" Height="679"/>
+            <Grid Height="30" Margin="0,0,0,10">
+                <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" Width="296" HorizontalAlignment="Center" Margin="0,5,0,5"/>
+                <TextBox x:Name="journalEntretienRecherche" TextWrapping="Wrap" TextChanged="JournalEntretienRecherche_TextChanged" Height="20" Margin="72,5,2,5"/>
+            </Grid>
+            <ListBox x:Name="journalEntretienList" MinHeight="100" SelectionChanged="JournalEntretienList_SelectionChanged" Height="657" Width="296"/>
         </StackPanel>
-        <Label Grid.Column="1" Content="Borne concerné :" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="journalEntretienBorne" Grid.Column="1" HorizontalAlignment="Left" Margin="149,30,0,0" VerticalAlignment="Top"/>
+        <Label Grid.Column="1" Content="Borne concerné :" HorizontalAlignment="Left" Margin="595,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="journalEntretienBorne" Grid.Column="1" HorizontalAlignment="Left" Margin="694,125,0,0" VerticalAlignment="Top"/>
 
-        <Label Grid.Column="1" Content="Technicien : " HorizontalAlignment="Left" Margin="50,240,0,0" VerticalAlignment="Top"/>
+        <Label Grid.Column="1" Content="Technicien : " HorizontalAlignment="Left" Margin="15,11,0,0" VerticalAlignment="Top"/>
 
-        <Label Grid.Column="1" Content="Matricule :" HorizontalAlignment="Left" Margin="83,266,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="matricule" Grid.Column="1" HorizontalAlignment="Left" Margin="148,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Grid.Column="1" Content="Matricule :" HorizontalAlignment="Left" Margin="48,37,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="matricule" Grid.Column="1" HorizontalAlignment="Left" Margin="160,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
-        <Label Grid.Column="1" Content="Nom :" HorizontalAlignment="Left" Margin="83,292,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nom" Grid.Column="1" HorizontalAlignment="Left" Margin="126,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Grid.Column="1" Content="Nom :" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="nom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
-        <Label Grid.Column="1" Content="Prenom :" HorizontalAlignment="Left" Margin="83,318,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="140,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Grid.Column="1" Content="Prenom :" HorizontalAlignment="Left" Margin="48,89,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
         <m:Map x:Name="borneMapEntretien" 
             CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
             Center="46.3790485,0.6430849"
-            Margin="354,43,50,360"
+            Margin="592,165,30,10"
             Grid.Column="1"/>
 
-        <Label Grid.Column="1" Content="Element à verifier :" HorizontalAlignment="Left" Margin="117,384,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementVerifier" Grid.Column="1" Margin="117,410,681,30"/>
+        <Label Grid.Column="1" Content="Element à verifier :" HorizontalAlignment="Left" Margin="32,139,0,0" VerticalAlignment="Top" Width="150"/>
+        <ListView x:Name="listElementVerifier" Grid.Column="1" Margin="32,165,694,10"/>
 
-        <Label Grid.Column="1" Content="Element remplacé :" HorizontalAlignment="Left" Margin="376,384,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementRemplacer" Grid.Column="1" Margin="376,410,422,30"/>
-        
+        <Label Grid.Column="1" Content="Element remplacé :" HorizontalAlignment="Left" Margin="310,139,0,0" VerticalAlignment="Top" Width="154"/>
+        <ListView x:Name="listElementRemplacer" Grid.Column="1" Margin="310,165,416,10"/>
+
 
     </Grid>
 </UserControl>

@@ -17,6 +17,9 @@
         <TabItem Header="Technicien">
             <tabs:Techniciens/>
         </TabItem>
+        <TabItem Header="Interventions">
+            <tabs:JournalIntervention/>
+        </TabItem>
         <TabItem Header="Journal d'entretiens">
             <tabs:JournalEntretien/>
         </TabItem>
@@ -25,9 +28,6 @@
         </TabItem>
         <TabItem Header="Journal des opérations">
             <tabs:JournalOperation/>
-        </TabItem>
-        <TabItem Header="Journal des interventions">
-            <tabs:JournalIntervention/>
         </TabItem>
     </TabControl>
 

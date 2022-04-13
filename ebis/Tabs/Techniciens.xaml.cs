@@ -72,8 +72,8 @@ namespace Ebis.Tabs
                     {
                         numeroInter = line["numeroInter"].ToString(),
                         typeInter = line["typeInter"].ToString(),
-                        dateDebut = line["dateDebut"].ToString(),
-                        dateFin = line["dateFin"].ToString(),
+                        dateDebut = line["dateDebut"].AsDateTime,
+                        dateFin = line["dateFin"].AsDateTime,
                     });
                 }
                 technicienInterventionList.ItemsSource = interventions;

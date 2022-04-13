@@ -27,7 +27,6 @@ namespace Ebis.Tabs
                 listBoxItem.Content = item["numero"].AsString;
                 listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
                 borneList.Items.Add(listBoxItem);
-
                 double latitude = Convert.ToDouble(
                     item["station"]["latitude"].AsString,
                     System.Globalization.CultureInfo.InvariantCulture);

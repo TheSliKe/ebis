@@ -5,19 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ebis.Tabs"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Margin="0,0,0,4">
-            <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Width="309"/>
-            <TextBox x:Name="InterventionRecherche" TextWrapping="Wrap" Width="310" TextChanged="InterventionRecherche_TextChanged"/>
-            <DataGrid x:Name="InterventionDataGrid" Height="404" Grid.ColumnSpan="2" Width="496">
+        <StackPanel Margin="10,10,10,10" Grid.ColumnSpan="2">
+            <Grid Height="30">
+                <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap"  Width="309" Margin="427,5,524,5"/>
+                <TextBox x:Name="InterventionRecherche" Height="20" TextWrapping="Wrap" Width="310" TextChanged="InterventionRecherche_TextChanged" Margin="273,5,197,5"/>
+            </Grid>
+            <DataGrid x:Name="InterventionDataGrid" AutoGenerateColumns="False" Margin="10,10,10,10" Height="647">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
+                    <DataGridTextColumn Header="Type d'intervention" Binding="{Binding typeInter}" />
+                    <DataGridTextColumn Header="Date de debut" Binding="{Binding dateDebut}" />
+                    <DataGridTextColumn Header="date de fin" Binding="{Binding dateFin}" />
+                    <DataGridTextColumn Header="Détail de l'intervention" Binding="{Binding detailInter}" />
+                    <DataGridTextColumn Header="Secteur" Binding="{Binding secteur}" />
+                    <DataGridTextColumn Header="Borne" Binding="{Binding borne}" />
+                    <DataGridTextColumn Header="Technicien" Binding="{Binding technicien}" />
+                </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-            </Grid>
-    
+    </Grid>
+
 </UserControl>
