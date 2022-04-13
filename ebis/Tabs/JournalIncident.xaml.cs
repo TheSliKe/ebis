@@ -25,7 +25,7 @@ namespace Ebis.Tabs
                 incidents.Add(new Incident()
                 {
                     dateIncident = item["dateIncident"].AsDateTime,
-                    borne = item["Borne"].ToString(),
+                    borne = item["borne"].ToString(),
                     typeIncidents = item["typeIncidents"].ToString(),
                     detailsIncidents = item["detailsIncidents"].ToString(),
                 });
