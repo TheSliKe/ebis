@@ -45,7 +45,34 @@ namespace Ebis.Tabs
             });
         }
 
-        private void journalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void journalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e) 
+        {
+
+            if (!String.IsNullOrEmpty(journalEntretienRecherche.Text))
+            {
+                journalEntretienList.Items.Clear();
+                mongoDatabase.recupererListEntretien(journalEntretienRecherche.Text).ForEach(item =>
+                {
+                    ListBoxItem l = new();
+                    l.Tag = item;
+                    l.Content = item["dateEntretient"].ToUniversalTime();
+                    journalEntretienList.Items.Add(l);
+
+                });
+            }
+            else
+            {
+                journalEntretienList.Items.Clear();
+                mongoDatabase.recupererListEntretien().ForEach(item =>
+                {
+                    ListBoxItem l = new();
+                    l.Tag = item;
+                    l.Content = item["dateEntretient"].ToUniversalTime();
+                    journalEntretienList.Items.Add(l);
+                });
+            }
+
+        }
 
         
         private void journalEntretienList_SelectionChangedBorneConcerne(object sender, SelectionChangedEventArgs e)

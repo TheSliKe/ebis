@@ -49,6 +49,18 @@ namespace Data
 
             return entretiensCollection.Find(new BsonDocument()).ToList();
         }
+
+        public List<BsonDocument> recupererListEntretien(string sender)
+        {
+            var borneCollection = db.GetCollection<BsonDocument>("entretiens");
+
+            var regexPattern = @"\b[" + sender + "]\\w+";
+
+            var filter = Builders<BsonDocument>.Filter.Regex("technicien.matricule", new BsonRegularExpression(new Regex(regexPattern)));
+
+            return borneCollection.Find(filter).ToList();
+        }
+
         public List<BsonDocument> recupererListIntervention()
         {
             var borneCollection = db.GetCollection<BsonDocument>("interventions");
