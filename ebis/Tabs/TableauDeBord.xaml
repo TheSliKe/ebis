@@ -3,18 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-
+             xmlns:charts="clr-namespace:Ebis.Tabs.Charts"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Top" Margin="52,47,427,360">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Mois" Labels="{Binding Labels}"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
-
+        <charts:MoyenneAccident Margin="92,74,423,329"/>
+        
         <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="958,94,0,0" VerticalAlignment="Top"/>
         <ListView x:Name="listElementsDefectueux" Margin="990,125,128,374"/>
         <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="958,378,0,0" VerticalAlignment="Top"/>

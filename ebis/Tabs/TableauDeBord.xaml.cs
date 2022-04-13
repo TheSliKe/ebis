@@ -1,6 +1,4 @@
 ﻿using Data;
-using LiveCharts;
-using LiveCharts.Wpf;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -26,17 +24,12 @@ namespace Ebis.Tabs
     {
         private MongoDatabase mongoDatabase;
 
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> Formatter { get; set; }
-
         public TableauDeBord()
         {
             InitializeComponent();
 
             mongoDatabase = new MongoDatabase();
 
-            initGraphMoyenneAccident();
             initListElementDefectueux();
             initListElementFiable();
 
@@ -62,40 +55,6 @@ namespace Ebis.Tabs
                 l.Content = item["_id"].AsString;
                 listElementsFiable.Items.Add(l);
             });
-        }
-
-        private void initGraphMoyenneAccident()
-        {
-            double[] avgValue = mongoDatabase.statMoyenneAccident();
-
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Nombre moyen d'incidents",
-                    Values = new ChartValues<double>
-                    {
-                        avgValue[0],
-                        avgValue[1],
-                        avgValue[2],
-                        avgValue[3],
-                        avgValue[4],
-                        avgValue[5],
-                        avgValue[6],
-                        avgValue[7],
-                        avgValue[8],
-                        avgValue[9],
-                        avgValue[10],
-                        avgValue[11]
-                    }
-                }
-            };
-
-
-            Labels = new[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" };
-            Formatter = value => value.ToString("N");
-
-            DataContext = this;
         }
       
     }
