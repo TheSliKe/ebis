@@ -1,5 +1,7 @@
-﻿using LiveCharts;
+﻿using Data;
+using LiveCharts;
 using LiveCharts.Wpf;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,29 +24,79 @@ namespace Ebis.Tabs
     /// </summary>
     public partial class TableauDeBord : UserControl
     {
+        private MongoDatabase mongoDatabase;
+
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
+
         public TableauDeBord()
         {
             InitializeComponent();
 
-            PointLabel = chartPoint =>
-             string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+            mongoDatabase = new MongoDatabase();
+
+            initGraphMoyenneAccident();
+            initListElementDefectueux();
+            initListElementFiable();
+
+        }
+
+        private void initListElementDefectueux()
+        {
+            List<BsonDocument> listElementDefectueux = mongoDatabase.statElementDefectueux();
+            listElementDefectueux.ForEach(item =>
+            {
+                ListBoxItem l = new();
+                l.Content = item["_id"].AsString;
+                listElementsDefectueux.Items.Add(l);
+            });
+        }
+
+        private void initListElementFiable()
+        {
+            List<BsonDocument> listElementFiable = mongoDatabase.statElementFiable();
+            listElementFiable.ForEach(item =>
+            {
+                ListBoxItem l = new();
+                l.Content = item["_id"].AsString;
+                listElementsFiable.Items.Add(l);
+            });
+        }
+
+        private void initGraphMoyenneAccident()
+        {
+            double[] avgValue = mongoDatabase.statMoyenneAccident();
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Nombre moyen d'incidents",
+                    Values = new ChartValues<double>
+                    {
+                        avgValue[0],
+                        avgValue[1],
+                        avgValue[2],
+                        avgValue[3],
+                        avgValue[4],
+                        avgValue[5],
+                        avgValue[6],
+                        avgValue[7],
+                        avgValue[8],
+                        avgValue[9],
+                        avgValue[10],
+                        avgValue[11]
+                    }
+                }
+            };
+
+
+            Labels = new[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" };
+            Formatter = value => value.ToString("N");
 
             DataContext = this;
         }
-
-        public Func<ChartPoint, string> PointLabel { get; set; }
-
-        private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
-        {
-            var chart = (LiveCharts.Wpf.PieChart)chartpoint.ChartView;
-
-            //clear selected slice.
-            foreach (PieSeries series in chart.Series)
-                series.PushOut = 0;
-
-            var selectedSeries = (PieSeries)chartpoint.SeriesView;
-            selectedSeries.PushOut = 8;
-
-        }
+      
     }
 }

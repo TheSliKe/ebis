@@ -2,28 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
 
-        <lvc:PieChart LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}" Margin="92,409,614,51">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Top" Margin="52,47,427,360">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Mois" Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
 
         <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="958,94,0,0" VerticalAlignment="Top"/>
-        <ListView Margin="990,125,128,436"/>
+        <ListView x:Name="listElementsDefectueux" Margin="990,125,128,374"/>
         <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="958,378,0,0" VerticalAlignment="Top"/>
-        <ListView Margin="990,409,128,152"/>
+        <ListView x:Name="listElementsFiable" Margin="990,409,128,83"/>
 
     </Grid>
 </UserControl>
