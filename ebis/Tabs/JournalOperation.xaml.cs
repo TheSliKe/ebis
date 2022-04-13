@@ -4,14 +4,11 @@ using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
-
 namespace Ebis.Tabs
 {
-
     public partial class JournalOperation : UserControl
     {
-        private MongoDatabase mongoDatabase;
-
+        private readonly MongoDatabase mongoDatabase;
         public JournalOperation()
         {
             InitializeComponent();
@@ -21,9 +18,7 @@ namespace Ebis.Tabs
 
         private void InitialiseJournalOperationDg() 
         {
-
             List<BsonDocument> operationDb = mongoDatabase.recupererListOperation();
-
             List<Operation> operations = new List<Operation>();
 
             foreach (var line in operationDb)
@@ -39,10 +34,9 @@ namespace Ebis.Tabs
             }
 
             dgJournalOperation.ItemsSource = operations;
-
         }
 
-        private void journalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) {
+        private void JournalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             
             if (!string.IsNullOrEmpty(journalOperationRecherche.Text))
             {
@@ -78,6 +72,5 @@ namespace Ebis.Tabs
                 dgJournalOperation.ItemsSource = operations;
             }
         }
-        private void journalOperationList_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
     }
 }

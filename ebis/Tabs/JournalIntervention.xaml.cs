@@ -8,7 +8,7 @@ namespace Ebis.Tabs
 {
     public partial class JournalIntervention : UserControl
     {
-        private MongoDatabase mongoDatabase;
+        private readonly MongoDatabase mongoDatabase;
         public JournalIntervention()
         {
             InitializeComponent();
@@ -17,10 +17,8 @@ namespace Ebis.Tabs
         }
         private void InitialiseInterventionTab()
         {
-            List<BsonDocument> listeIntervention= mongoDatabase.recupererListIntervention();
-
             List<Intervention> interventions = new List<Intervention>();
-            listeIntervention.ForEach(item => {
+            mongoDatabase.recupererListIntervention().ForEach(item => {
                 interventions.Add(new Intervention()
                 {
                     numeroInter = item["numeroInter"].ToString(),

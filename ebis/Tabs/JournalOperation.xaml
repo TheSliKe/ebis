@@ -17,7 +17,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="journalOperationRecherche" TextChanged="journalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="938,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" Height="26"/>
+        <TextBox x:Name="journalOperationRecherche" TextChanged="JournalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="938,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" Height="26"/>
 
     </Grid>
 </UserControl>

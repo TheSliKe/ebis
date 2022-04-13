@@ -14,19 +14,17 @@
         </Grid.ColumnDefinitions>
 
 
-        <m:Map 
-                        x:Name="borneMap" 
-                        CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
-                        Center="46.3790485,0.6430849"
-                        Margin="10,10,10,10"
-                         Mode="AerialWithLabels"
-                        Grid.Column="2"/>
-
+        <m:Map x:Name="borneMap" 
+            CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
+            Center="46.3790485,0.6430849"
+            Margin="10,10,10,10"
+            Mode="AerialWithLabels"
+            Grid.Column="2"/>
 
         <StackPanel>
-            <TextBox x:Name="borneRecherche" TextWrapping="Wrap" Width="120" TextChanged="borneRecherche_TextChanged"/>
-            <Button  x:Name="borneInfoButton" Content="Info borne selectionnée" IsEnabled="False" Click="borneInfoButton_Click"/>
-            <ListBox x:Name="borneList" SelectionChanged="borneList_SelectionChanged"/>
+            <TextBox x:Name="borneRecherche" TextWrapping="Wrap" Width="120" TextChanged="BorneRecherche_TextChanged"/>
+            <Button  x:Name="borneInfoButton" Content="Info borne selectionnée" IsEnabled="False" Click="BorneInfoButton_Click"/>
+            <ListBox x:Name="borneList" SelectionChanged="BorneList_SelectionChanged"/>
         </StackPanel>
     </Grid>
 </UserControl>

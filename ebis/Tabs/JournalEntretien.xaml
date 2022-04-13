@@ -17,8 +17,8 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Margin="0,10,0,10">
-            <TextBox x:Name="journalEntretienRecherche" TextWrapping="Wrap" Width="120" TextChanged="journalEntretienRecherche_TextChanged"/>
-            <ListBox x:Name="journalEntretienList" MinHeight="100" SelectionChanged="journalEntretienList_SelectionChanged"/>
+            <TextBox x:Name="journalEntretienRecherche" TextWrapping="Wrap" Width="120" TextChanged="JournalEntretienRecherche_TextChanged"/>
+            <ListBox x:Name="journalEntretienList" MinHeight="100" SelectionChanged="JournalEntretienList_SelectionChanged"/>
         </StackPanel>
         <Label Grid.Column="1" Content="Bornes concernés :" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
         <ListView x:Name="listeBorneConcerne" Grid.Column="1" Margin="50,61,734,507" SelectionChanged="journalEntretienList_SelectionChangedBorneConcerne"/>
@@ -34,12 +34,11 @@
         <Label Grid.Column="1" Content="Prenom :" HorizontalAlignment="Left" Margin="83,318,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="140,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <m:Map 
-                        x:Name="borneMapEntretien" 
-                        CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
-                        Center="46.3790485,0.6430849"
-                        Margin="354,43,50,360"
-                        Grid.Column="1"/>
+        <m:Map x:Name="borneMapEntretien" 
+            CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
+            Center="46.3790485,0.6430849"
+            Margin="354,43,50,360"
+            Grid.Column="1"/>
 
         <Label Grid.Column="1" Content="Element à verifier :" HorizontalAlignment="Left" Margin="117,384,0,0" VerticalAlignment="Top"/>
         <ListView x:Name="listElementVerifier" Grid.Column="1" Margin="117,410,681,30"/>

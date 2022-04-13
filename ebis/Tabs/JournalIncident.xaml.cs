@@ -1,6 +1,5 @@
 ﻿using Data;
 using Ebis.Object;
-using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -8,7 +7,7 @@ namespace Ebis.Tabs
 {
     public partial class JournalIncident : UserControl
     {
-        private MongoDatabase mongoDatabase;
+        private readonly MongoDatabase mongoDatabase;
         public JournalIncident()
         {
             InitializeComponent();
@@ -32,7 +31,7 @@ namespace Ebis.Tabs
 
         }
 
-        private void journalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) {
+        private void JournalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             if (!string.IsNullOrEmpty(journalIncidentRecherche.Text))
             {
                 interventionDataGrid.ItemsSource = null;
