@@ -126,7 +126,7 @@ namespace Data
             return operationCollection.Find(filter).ToList();
         }
 
-        public double[] statMoyenneAccident()
+        public double[] StatMoyenneAccident()
         {
             var incidentsCollection = db.GetCollection<BsonDocument>("incidents");
 
@@ -196,7 +196,7 @@ namespace Data
             return avgValue;
         }
 
-        public List<BsonDocument> statElementDefectueux()
+        public List<BsonDocument> StatElementDefectueux()
         {
 
             var incidentsEntretien = db.GetCollection<BsonDocument>("entretiens");
@@ -221,7 +221,7 @@ namespace Data
 
         }
 
-        public List<BsonDocument> statElementFiable()
+        public List<BsonDocument> StatElementFiable()
         {
 
             var incidentsEntretien = db.GetCollection<BsonDocument>("entretiens");
@@ -244,6 +244,15 @@ namespace Data
 
             return incidentsEntretien.Aggregate(pipeline).ToList();
         }
+        public List<BsonDocument> StatPartNiveauIncident()
+        {
+            var listeIncidents = db.GetCollection<BsonDocument>("incidents");
 
+            PipelineDefinition<BsonDocument, BsonDocument> pipeline = new BsonDocument[]
+            {
+                new BsonDocument("$sortByCount", "$niveauIncident")
+            };
+            return listeIncidents.Aggregate(pipeline).ToList();
+        }
     }
 }

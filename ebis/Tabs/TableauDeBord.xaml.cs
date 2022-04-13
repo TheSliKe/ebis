@@ -37,7 +37,7 @@ namespace Ebis.Tabs
 
         private void initListElementDefectueux()
         {
-            List<BsonDocument> listElementDefectueux = mongoDatabase.statElementDefectueux();
+            List<BsonDocument> listElementDefectueux = mongoDatabase.StatElementDefectueux();
             listElementDefectueux.ForEach(item =>
             {
                 ListBoxItem l = new();
@@ -48,7 +48,7 @@ namespace Ebis.Tabs
 
         private void initListElementFiable()
         {
-            List<BsonDocument> listElementFiable = mongoDatabase.statElementFiable();
+            List<BsonDocument> listElementFiable = mongoDatabase.StatElementFiable();
             listElementFiable.ForEach(item =>
             {
                 ListBoxItem l = new();

@@ -40,7 +40,7 @@ namespace Ebis.Tabs.Charts
 
         private void initGraphMoyenneAccident()
         {
-            double[] avgValue = mongoDatabase.statMoyenneAccident();
+            double[] avgValue = mongoDatabase.StatMoyenneAccident();
 
             SeriesCollection = new SeriesCollection
             {

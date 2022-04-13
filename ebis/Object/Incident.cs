@@ -12,5 +12,7 @@ namespace Ebis.Object
         public string borne { get; set; }
         public string typeIncidents { get; set; }
         public string detailsIncidents { get; set; }
+
+        public string typeIncident { get; set; }
     }
 }
