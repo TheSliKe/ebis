@@ -3,27 +3,13 @@ using Microsoft.Maps.MapControl.WPF;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Ebis.Tabs
 {
-    /// <summary>
-    /// Logique d'interaction pour JournalEntretien.xaml
-    /// </summary>
     public partial class JournalEntretien : UserControl
     {
-        private MongoDatabase mongoDatabase;
+        private readonly MongoDatabase mongoDatabase;
 
         public JournalEntretien()
         {
@@ -35,29 +21,25 @@ namespace Ebis.Tabs
         private void InitialiseEntretienList()
         {
             List<BsonDocument> listeEntretien = mongoDatabase.recupererListEntretien();
-
             listeEntretien.ForEach(item => {
-                ListBoxItem l = new();
-                l.Tag = item;
-                l.Content = item["dateEntretient"].ToUniversalTime();
-                journalEntretienList.Items.Add(l);
-                
+                ListBoxItem listBoxItem = new();
+                listBoxItem.Tag = item;
+                listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                journalEntretienList.Items.Add(listBoxItem);
             });
         }
 
-        private void journalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e) 
+        private void JournalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             if (!String.IsNullOrEmpty(journalEntretienRecherche.Text))
             {
                 journalEntretienList.Items.Clear();
                 mongoDatabase.recupererListEntretien(journalEntretienRecherche.Text).ForEach(item =>
                 {
-                    ListBoxItem l = new();
-                    l.Tag = item;
-                    l.Content = item["dateEntretient"].ToUniversalTime();
-                    journalEntretienList.Items.Add(l);
-
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                    journalEntretienList.Items.Add(listBoxItem);
                 });
             }
             else
@@ -65,41 +47,39 @@ namespace Ebis.Tabs
                 journalEntretienList.Items.Clear();
                 mongoDatabase.recupererListEntretien().ForEach(item =>
                 {
-                    ListBoxItem l = new();
-                    l.Tag = item;
-                    l.Content = item["dateEntretient"].ToUniversalTime();
-                    journalEntretienList.Items.Add(l);
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime();
+                    journalEntretienList.Items.Add(listBoxItem);
                 });
             }
-
         }
 
         
         private void journalEntretienList_SelectionChangedBorneConcerne(object sender, SelectionChangedEventArgs e)
         {
-            
             if(listeBorneConcerne.SelectedItem != null)
             {
-
                 string tagJson = ((ListBoxItem)listeBorneConcerne.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
 
-
                 borneMapEntretien.Children.Clear();
 
-                double latitude = Convert.ToDouble(document["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
-                double longitude = Convert.ToDouble(document["longitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
+                double latitude = Convert.ToDouble(
+                    document["latitude"].AsString,
+                    System.Globalization.CultureInfo.InvariantCulture);
+                double longitude = Convert.ToDouble(
+                    document["longitude"].AsString,
+                    System.Globalization.CultureInfo.InvariantCulture);
                 Pushpin pin = new();
                 pin.Location = new Location(latitude, longitude);
                 borneMapEntretien.Children.Add(pin);
                 Location loc = new Location(document["latitude"].ToDouble(), document["longitude"].ToDouble());
                 borneMapEntretien.SetView(loc, 12);
-
             }
-
         }
 
-        private void journalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        private void JournalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             borneMapEntretien.Children.Clear();
             listeBorneConcerne.Items.Clear();
@@ -108,16 +88,14 @@ namespace Ebis.Tabs
 
             if (journalEntretienList.SelectedItem != null)
             {
-
                 string tagJson = ((ListBoxItem)journalEntretienList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
-
                 foreach (var item in document["borne"].AsBsonArray)
                 {
-                    ListBoxItem l = new();
-                    l.Tag = item;
-                    l.Content = item["numero"].AsString;
-                    listeBorneConcerne.Items.Add(l);
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["numero"].AsString;
+                    listeBorneConcerne.Items.Add(listBoxItem);
                 }
 
                 matricule.Text = document["technicien"]["matricule"].ToString();
@@ -126,20 +104,18 @@ namespace Ebis.Tabs
 
                 foreach (var item in document["elements"]["elementVerifier"].AsBsonArray)
                 {
-                    ListBoxItem l = new();
-                    l.Content = item;
-                    listElementVerifier.Items.Add(l);
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Content = item;
+                    listElementVerifier.Items.Add(listBoxItem);
                 }
 
                 foreach (var item in document["elements"]["elementRemplacer"].AsBsonArray)
                 {
-                    ListBoxItem l = new();
-                    l.Content = item;
-                    listElementRemplacer.Items.Add(l);
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Content = item;
+                    listElementRemplacer.Items.Add(listBoxItem);
                 }
-
             }
-
         }
     }
 }

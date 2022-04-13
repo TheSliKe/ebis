@@ -3,118 +3,93 @@ using Microsoft.Maps.MapControl.WPF;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Ebis.Tabs
 {
-    /// <summary>
-    /// Logique d'interaction pour Borne.xaml
-    /// </summary>
-    public partial class Borne : UserControl
-    {
-        private MongoDatabase mongoDatabase;
+    public partial class Borne : UserControl {
+        private readonly MongoDatabase mongoDatabase;
 
-        public Borne()
+        public Borne() 
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
             InitialiseBorneTab();
         }
 
-        private void InitialiseBorneTab()
+        private void InitialiseBorneTab() 
         {
-            List<BsonDocument> listeBorne = mongoDatabase.recupererListBorne();
+            mongoDatabase.recupererListBorne().ForEach(item => {
+                ListBoxItem listBoxItem = new();
+                listBoxItem.Tag = item;
+                listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
+                borneList.Items.Add(listBoxItem);
 
-            listeBorne.ForEach(item => {
-                ListBoxItem l = new();
-                l.Tag = item;
-                l.Content = item["station"]["adresseRue"].AsString;
-                l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
-                borneList.Items.Add(l);
-
-                double latitude = Convert.ToDouble(item["station"]["latitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
-                double longitude = Convert.ToDouble(item["station"]["longitude"].AsString, System.Globalization.CultureInfo.InvariantCulture);
+                double latitude = Convert.ToDouble(
+                    item["station"]["latitude"].AsString,
+                    System.Globalization.CultureInfo.InvariantCulture);
+                double longitude = Convert.ToDouble(
+                    item["station"]["longitude"].AsString,
+                    System.Globalization.CultureInfo.InvariantCulture);
                 Pushpin pin = new();
-                pin.Location = new Location(latitude, longitude);
+                pin.Location = new(latitude, longitude);
                 borneMap.Children.Add(pin);
             });
         }
 
-        private void borneRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        private void BorneRecherche_TextChanged(object sender, TextChangedEventArgs e) 
         {
-
-            if (!String.IsNullOrEmpty(borneRecherche.Text))
+            if (!string.IsNullOrEmpty(borneRecherche.Text))
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item =>
-                {
-                    ListBoxItem l = new();
-                    l.Tag = item;
-                    l.Content = item["station"]["adresseRue"].AsString;
-                    l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
-                    borneList.Items.Add(l);
+                mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item => {
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                    listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
+                    borneList.Items.Add(listBoxItem);
                 });
-            }
+            } 
             else
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne().ForEach(item =>
-                {
-                    ListBoxItem l = new();
-                    l.Tag = item;
-                    l.Content = item["station"]["adresseRue"].AsString;
-                    l.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(borneInfoButton_Click));
-                    borneList.Items.Add(l);
+                mongoDatabase.recupererListBorne().ForEach(item => {
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                    listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
+                    borneList.Items.Add(listBoxItem);
                 });
             }
-
             borneInfoButton.IsEnabled = false;
-
         }
 
-        private void borneInfoButton_Click(object sender, RoutedEventArgs e)
+        private void BorneInfoButton_Click(object sender, RoutedEventArgs e)
         {
-
-            if (borneList.SelectedItem != null)
+            if (borneList.SelectedItem != null) 
             {
-
                 string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
-
-                InfoBornePopup infoBornePopup = new InfoBornePopup(document);
+                InfoBornePopup infoBornePopup = new(document);
                 infoBornePopup.Show();
             }
-
-
         }
 
-        private void borneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BorneList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            if (borneList.SelectedItem != null)
+            if (borneList.SelectedItem != null) 
             {
                 string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
-
                 BsonDocument document = BsonDocument.Parse(tagJson);
-
-                Location loc = new Location(document["station"]["latitude"].ToDouble(), document["station"]["longitude"].ToDouble());
+                Location loc = new(
+                    document["station"]["latitude"].ToDouble(),
+                    document["station"]["longitude"].ToDouble());
                 borneMap.SetView(loc, 12);
-
                 borneInfoButton.IsEnabled = true;
-
             }
-
         }
     }
 }

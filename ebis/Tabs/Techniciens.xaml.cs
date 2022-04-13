@@ -8,58 +8,76 @@ namespace Ebis.Tabs
 {
     public partial class Techniciens : UserControl
     {
-
-        private MongoDatabase mongoDatabase;
-
+        private readonly MongoDatabase mongoDatabase;
         public Techniciens()
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
             InitialiseTechnicienTab();
         }
-
         private void InitialiseTechnicienTab()
         {
             List<BsonDocument> listeTechnicien = mongoDatabase.recupererListTechniciens();
 
             listeTechnicien.ForEach(item => {
-                ListBoxItem l = new();
-                l.Tag = item;
-                l.Content = item["nom"].AsString + " " + item["prenom"].AsString;
-                technicienList.Items.Add(l);
+                ListBoxItem listBoxItem = new();
+                listBoxItem.Tag = item;
+                listBoxItem.Content = item["nom"].AsString + " " + item["prenom"].AsString;
+                technicienList.Items.Add(listBoxItem);
             });
         }
-        private void technicienRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
-        private void technicienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string tagJson = ((ListBoxItem)technicienList.SelectedItem).Tag.ToString();
-
-            BsonDocument document = BsonDocument.Parse(tagJson);
-
-            technicienNom.Text = document["nom"].ToString();
-            technicienPrenom.Text = document["prenom"].ToString();
-            technicienMatricule.Text = document["matricule"].ToString();
-            technicienAdresse.Text = document["adresse"].ToString();
-            technicienVille.Text = document["ville"].ToString();
-            technicienCodePostal.Text = document["codePostal"].ToString();
-            technicienSecteur.Text = document["Secteur"].ToString();
-            technicienTelephone.Text = document["telMobile"].ToString();
-
-            List<Intervention> interventions = new List<Intervention>();
-
-            foreach (var line in document["intervention"].AsBsonArray)
-            {
-                interventions.Add(new Intervention()
+        private void TechnicienRecherche_TextChanged(object sender, TextChangedEventArgs e) {
+            if (!string.IsNullOrEmpty(technicienRecherche.Text)) {
+                technicienList.Items.Clear();
+                mongoDatabase.recupererListTechniciens(technicienRecherche.Text).ForEach( item =>
                 {
-                    numeroInter = line["numeroInter"].ToString(),
-                    typeInter = line["typeInter"].ToString(),
-                    dateDebut = line["dateDebut"].ToString(),
-                    dateFin = line["dateFin"].ToString(),
+                    ListBoxItem listBoxItem = new();
+                    listBoxItem.Tag = item;
+                    listBoxItem.Content = item["nom"].AsString + " " + item["prenom"].AsString;
+                    technicienList.Items.Add(listBoxItem);
                 });
+            } 
+            else
+            {
+                technicienList.Items.Clear();
+                mongoDatabase.recupererListTechniciens().ForEach(item =>
+               {
+                   ListBoxItem listBoxItem = new();
+                   listBoxItem.Tag = item;
+                   listBoxItem.Content = item["nom"].AsString + " " + item["prenom"].AsString;
+                   technicienList.Items.Add(listBoxItem);
+               });
             }
-
-            technicienInterventionList.ItemsSource = interventions;
         }
+        private void TechnicienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (technicienList.SelectedItem != null)
+            {
+                string tagJson = ((ListBoxItem)technicienList.SelectedItem).Tag.ToString();
+                BsonDocument document = BsonDocument.Parse(tagJson);
+                technicienNom.Text = document["nom"].ToString();
+                technicienPrenom.Text = document["prenom"].ToString();
+                technicienMatricule.Text = document["matricule"].ToString();
+                technicienAdresse.Text = document["adresse"].ToString();
+                technicienVille.Text = document["ville"].ToString();
+                technicienCodePostal.Text = document["codePostal"].ToString();
+                technicienSecteur.Text = document["secteur"].ToString();
+                technicienTelephone.Text = document["telMobile"].ToString();
 
+                List<Intervention> interventions = new List<Intervention>();
+
+                foreach (var line in document["intervention"].AsBsonArray)
+                {
+                    interventions.Add(new Intervention()
+                    {
+                        numeroInter = line["numeroInter"].ToString(),
+                        typeInter = line["typeInter"].ToString(),
+                        dateDebut = line["dateDebut"].ToString(),
+                        dateFin = line["dateFin"].ToString(),
+                    });
+                }
+                technicienInterventionList.ItemsSource = interventions;
+            }
+        }
     }
 }
