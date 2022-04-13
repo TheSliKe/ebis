@@ -12,9 +12,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Margin="0,10,0,10">
-            <TextBox x:Name="InterventionRecherche" TextWrapping="Wrap" Width="120" TextChanged="InterventionRecherche_TextChanged"/>
-            <DataGrid x:Name="InterventionDataGrid" Height="411" Grid.ColumnSpan="2">
+        <StackPanel Margin="0,0,0,4">
+            <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Width="309"/>
+            <TextBox x:Name="InterventionRecherche" TextWrapping="Wrap" Width="310" TextChanged="InterventionRecherche_TextChanged"/>
+            <DataGrid x:Name="InterventionDataGrid" Height="404" Grid.ColumnSpan="2" Width="496">
             </DataGrid>
         </StackPanel>
             </Grid>
