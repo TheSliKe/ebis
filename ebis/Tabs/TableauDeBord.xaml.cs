@@ -32,7 +32,6 @@ namespace Ebis.Tabs
 
             initListElementDefectueux();
             initListElementFiable();
-
         }
 
         private void initListElementDefectueux()

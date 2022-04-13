@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -243,6 +244,70 @@ namespace Data
             };
 
             return incidentsEntretien.Aggregate(pipeline).ToList();
+        }
+
+        public Dictionary<string, double> statMoyenneDureeFonctionnement() 
+        {
+            var bornes = recupererListBorne();
+
+            List<int> dfAccesReseaux = new List<int>();
+            List<int> dfrouteur = new List<int>();
+            List<int> dfdisqueSSD = new List<int>();
+            List<int> dfdisqueSAS = new List<int>();
+            List<int> dfserveur = new List<int>();
+            List<int> dfhote = new List<int>();
+
+            bornes.ForEach(borne =>
+            {
+                var accesReseaux = borne["accesReseaux"].AsBsonArray;
+                foreach (var item in accesReseaux)
+                {
+                    if (!item["DF"].IsBsonNull) { dfAccesReseaux.Add(item["DF"].AsInt32); }
+                }
+
+                var routeur = borne["routeur"].AsBsonArray;
+                foreach (var item in routeur)
+                {
+                    if (!item["DF"].IsBsonNull) { dfrouteur.Add(item["DF"].AsInt32); }
+                }
+
+                var disqueSSD = borne["disqueSSD"].AsBsonArray;
+                foreach (var item in disqueSSD)
+                {
+                    if (!item["DF"].IsBsonNull){dfdisqueSSD.Add(item["DF"].AsInt32);}
+                }
+
+                var disqueSAS = borne["disqueSAS"].AsBsonArray;
+                foreach (var item in disqueSAS)
+                {
+                    if (!item["DF"].IsBsonNull){dfdisqueSAS.Add(item["DF"].AsInt32); }
+                }
+
+                var serveur = borne["serveur"].AsBsonArray;
+                foreach (var item in serveur)
+                {
+                    if (!item["DF"].IsBsonNull){dfserveur.Add(item["DF"].AsInt32);}
+                }
+
+                var hote = borne["hote"].AsBsonArray;
+                foreach (var item in hote)
+                {
+                    if (!item["DF"].IsBsonNull){dfhote.Add(item["DF"].AsInt32);}
+                }
+
+            });
+
+            var avgMap = new Dictionary<string, double>();
+
+            avgMap["accesReseaux"] = dfAccesReseaux.Average();
+            avgMap["routeur"] = dfrouteur.Average();
+            avgMap["disqueSSD"] = dfdisqueSSD.Average();
+            avgMap["disqueSAS"] = dfdisqueSAS.Average();
+            avgMap["serveur"] = dfserveur.Average();
+            avgMap["hote"] = dfhote.Average();
+
+            return avgMap;
+
         }
 
     }

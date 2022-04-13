@@ -8,8 +8,10 @@
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
 
-        <charts:MoyenneAccident Margin="92,74,423,329"/>
-        
+        <charts:MoyenneAccident Margin="33,74,423,329"/>
+
+        <charts:MoyenneFonctionnement Margin="139,409,423,59"/>
+
         <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="958,94,0,0" VerticalAlignment="Top"/>
         <ListView x:Name="listElementsDefectueux" Margin="990,125,128,374"/>
         <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="958,378,0,0" VerticalAlignment="Top"/>
