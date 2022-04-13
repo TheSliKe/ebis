@@ -24,7 +24,7 @@ namespace Ebis.Tabs
             mongoDatabase.recupererListBorne().ForEach(item => {
                 ListBoxItem listBoxItem = new();
                 listBoxItem.Tag = item;
-                listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                listBoxItem.Content = item["numero"].AsString;
                 listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
                 borneList.Items.Add(listBoxItem);
 
@@ -48,7 +48,7 @@ namespace Ebis.Tabs
                 mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item => {
                     ListBoxItem listBoxItem = new();
                     listBoxItem.Tag = item;
-                    listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                    listBoxItem.Content = item["numero"].AsString;
                     listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
                     borneList.Items.Add(listBoxItem);
                 });
@@ -59,7 +59,7 @@ namespace Ebis.Tabs
                 mongoDatabase.recupererListBorne().ForEach(item => {
                     ListBoxItem listBoxItem = new();
                     listBoxItem.Tag = item;
-                    listBoxItem.Content = item["station"]["adresseRue"].AsString;
+                    listBoxItem.Content = item["numero"].AsString;
                     listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
                     borneList.Items.Add(listBoxItem);
                 });

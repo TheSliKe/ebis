@@ -55,19 +55,22 @@ namespace Ebis.Tabs
             }
         }
 
-        
-        private void journalEntretienList_SelectionChangedBorneConcerne(object sender, SelectionChangedEventArgs e)
+        private void JournalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(listeBorneConcerne.SelectedItem != null)
+            borneMapEntretien.Children.Clear();
+            journalEntretienBorne.Content = "";
+            listElementVerifier.Items.Clear();
+            listElementRemplacer.Items.Clear();
+
+            if (journalEntretienList.SelectedItem != null)
             {
-                string tagJson = ((ListBoxItem)listeBorneConcerne.SelectedItem).Tag.ToString();
+                string tagJson = ((ListBoxItem)journalEntretienList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
-
-                borneMapEntretien.Children.Clear();
-
+               
+                journalEntretienBorne.Content = document["borne"];
                 double latitude = Convert.ToDouble(
-                    document["latitude"].AsString,
-                    System.Globalization.CultureInfo.InvariantCulture);
+                   document["latitude"].AsString,
+                   System.Globalization.CultureInfo.InvariantCulture);
                 double longitude = Convert.ToDouble(
                     document["longitude"].AsString,
                     System.Globalization.CultureInfo.InvariantCulture);
@@ -76,27 +79,7 @@ namespace Ebis.Tabs
                 borneMapEntretien.Children.Add(pin);
                 Location loc = new Location(document["latitude"].ToDouble(), document["longitude"].ToDouble());
                 borneMapEntretien.SetView(loc, 12);
-            }
-        }
 
-        private void JournalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            borneMapEntretien.Children.Clear();
-            listeBorneConcerne.Items.Clear();
-            listElementVerifier.Items.Clear();
-            listElementRemplacer.Items.Clear();
-
-            if (journalEntretienList.SelectedItem != null)
-            {
-                string tagJson = ((ListBoxItem)journalEntretienList.SelectedItem).Tag.ToString();
-                BsonDocument document = BsonDocument.Parse(tagJson);
-                foreach (var item in document["borne"].AsBsonArray)
-                {
-                    ListBoxItem listBoxItem = new();
-                    listBoxItem.Tag = item;
-                    listBoxItem.Content = item["numero"].AsString;
-                    listeBorneConcerne.Items.Add(listBoxItem);
-                }
 
                 matricule.Text = document["technicien"]["matricule"].ToString();
                 nom.Text = document["technicien"]["nom"].ToString();
