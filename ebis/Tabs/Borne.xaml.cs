@@ -54,7 +54,7 @@ namespace Ebis.Tabs
         private void borneRecherche_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            if (!String.IsNullOrEmpty(borneRecherche.Text))
+            if (!string.IsNullOrEmpty(borneRecherche.Text))
             {
                 borneList.Items.Clear();
                 mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item =>

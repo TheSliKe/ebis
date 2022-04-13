@@ -18,10 +18,8 @@ namespace Ebis.Tabs
 
         private void InitialiseIncidentTab()
         {
-            List<BsonDocument> listeIntervention = mongoDatabase.recupererListIncidents();
-
             List<Incident> incidents = new();
-            listeIntervention.ForEach(item => {
+            mongoDatabase.recupererListIncidents().ForEach(item => {
                 incidents.Add(new Incident()
                 {
                     dateIncident = item["dateIncident"].AsDateTime,
@@ -34,6 +32,38 @@ namespace Ebis.Tabs
 
         }
 
-        private void journalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void journalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) {
+            if (!string.IsNullOrEmpty(journalIncidentRecherche.Text))
+            {
+                interventionDataGrid.ItemsSource = null;
+                List<Incident> incidents = new();
+                mongoDatabase.recupererListIncidents(journalIncidentRecherche.Text).ForEach(item => {
+                    incidents.Add(new Incident()
+                    {
+                        dateIncident = item["dateIncident"].AsDateTime,
+                        borne = item["borne"].ToString(),
+                        typeIncidents = item["typeIncidents"].ToString(),
+                        detailsIncidents = item["detailsIncidents"].ToString(),
+                    });
+                }); 
+                interventionDataGrid.ItemsSource = incidents;
+            }
+            else
+            {
+                interventionDataGrid.ItemsSource = null;
+                List<Incident> incidents = new();
+                mongoDatabase.recupererListIncidents().ForEach(item =>
+                {
+                    incidents.Add(new Incident()
+                    {
+                        dateIncident = item["dateIncident"].AsDateTime,
+                        borne = item["borne"].ToString(),
+                        typeIncidents = item["typeIncidents"].ToString(),
+                        detailsIncidents = item["detailsIncidents"].ToString(),
+                    });
+                }); 
+                interventionDataGrid.ItemsSource = incidents;
+            }
+        }
     }
 }
