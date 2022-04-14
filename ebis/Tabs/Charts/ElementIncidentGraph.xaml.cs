@@ -12,6 +12,7 @@ namespace Ebis.Tabs.Charts
     public partial class ElementIncidentGraph : UserControl
     {
         private MongoDatabase mongoDatabase;
+
         public ElementIncidentGraph()
         {
             InitializeComponent();
@@ -21,47 +22,93 @@ namespace Ebis.Tabs.Charts
             InitGraph();
         }
 
-        public void InitGraph() {
-            List<BsonDocument> element = mongoDatabase.Entretien80element20();
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
 
-            int total = 0;
-            foreach (BsonDocument elem in element)
-                total = total + elem["count"].AsInt32;
+        private void InitGraph() {
 
-            ColumnSeriesCollection = new SeriesCollection{};
-            ChartValues<double> values = new();
+            List<BsonDocument> listElements = mongoDatabase.Entretien80element20();
 
-            foreach (BsonDocument elem in element)
-                values.Add(elem["count"].AsInt32 );
+            Dictionary<string, int> temp = new Dictionary<string, int>();
+            foreach (BsonDocument element in listElements) {
 
-            ColumnSeriesCollection.Add(new ColumnSeries
-            {
-                Title = "",
-                Values = values
-            });
+                temp[element["_id"].AsString] = element["count"].AsInt32;
 
-            LineSeriesCollection = new SeriesCollection{};
-            ChartValues<double> valuesLine = new();
-            double s = 0;
-            foreach (BsonDocument elem in element)
-            {
-                s += elem["count"].AsInt32;
-                valuesLine.Add(s);
             }
 
-            LineSeriesCollection.Add(new LineSeries
+            int[] cumul = new int[listElements.Count];
+            int Index = 0;
+            listElements.ForEach(x =>
             {
-                Title = "",
-                Values = valuesLine
+                if (Index == 0) 
+                {
+                    cumul[Index] = x["count"].AsInt32;
+                } 
+                else 
+                {
+                    cumul[Index] = x["count"].AsInt32 + cumul[Index - 1];
+                }
+
+                Index++;
+            });
+
+            double[] pourcentage = new double[listElements.Count];
+            Index = 0;
+            listElements.ForEach(x =>
+            {
+                pourcentage[Index] = (double)cumul[Index] / (double)cumul[5] * (double)100;
+
+                Index++;
+            });
+
+
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "element",
+                    Values = new ChartValues<double>
+                    {
+                        temp["routeur"],
+                        temp["serveur"],
+                        temp["disqueSas"],
+                        temp["accesReseaux"],
+                        temp["disqueSsd"],
+                        temp["hote"]
+                    }
+                },
+                new LineSeries
+                {
+                    Title = "pourcentage",
+                    Values = new ChartValues<double>
+                    {
+                        pourcentage[0],
+                        pourcentage[1],
+                        pourcentage[2],
+                        pourcentage[3],
+                        pourcentage[4],
+                        pourcentage[5]
+                    }
+
+                }
+            };
+
+            Labels = new string[listElements.Count];
+
+            Index = 0;
+            listElements.ForEach(x =>
+            {
+                Labels[Index] = x["_id"].AsString;
+                Index++;
             });
 
             Formatter = value => value.ToString("N");
-            
+
             DataContext = this;
         }
-        public SeriesCollection ColumnSeriesCollection { get; set; }
-        public SeriesCollection LineSeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> Formatter { get; set; }
+
+       
+
     }
 }

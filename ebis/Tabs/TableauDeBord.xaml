@@ -27,12 +27,12 @@
 
         <!--<charts:MoyenneFonctionnement Margin="10,234,10,267"/>-->
 
-        <charts:PartIncident Margin="394,490,394,10"/>
+        <charts:PartIncident Margin="856,471,59,10"/>
 
-        <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="50,458,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementsDefectueux" Margin="50,490,1068,10"/>
-        <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="1070,458,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementsFiable" Margin="1070,490,48,10"/>
+        <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="165,458,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listElementsDefectueux" Margin="165,490,953,10"/>
+        <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="478,458,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listElementsFiable" Margin="478,490,640,10"/>
 
     </Grid>
 </UserControl>
