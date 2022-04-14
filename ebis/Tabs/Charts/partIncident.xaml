@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Ebis.Tabs.Charts" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:Ebis.Tabs.Charts" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <lvc:PieChart Series="{Binding SeriesCollection}" LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}"/>
+        <lvc:PieChart LegendLocation="Bottom" DataClick="Chart_OnDataClick" Hoverable="False" DataTooltip="{x:Null}">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries x:Name="chartImportant" Title="Important" Values="0" DataLabels="True"/>
+                <lvc:PieSeries x:Name="chartCritique" Title="Critique" Values="0" DataLabels="True" />
+                <lvc:PieSeries x:Name="chartFaible" Title="Faible" Values="0" DataLabels="True" />
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
     </Grid>
 </UserControl>

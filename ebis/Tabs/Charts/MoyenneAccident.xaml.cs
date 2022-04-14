@@ -65,7 +65,6 @@ namespace Ebis.Tabs.Charts
                 }
             };
 
-
             Labels = new[] { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" };
             Formatter = value => value.ToString("N");
 

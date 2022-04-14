@@ -245,7 +245,8 @@ namespace Data
 
             return incidentsEntretien.Aggregate(pipeline).ToList();
         }
-        public Dictionary<string, int> StatPartNiveauIncident()
+
+        public Dictionary<string, double> StatPartNiveauIncident()
         {
             var listeIncidents = db.GetCollection<BsonDocument>("incidents");
 
@@ -255,7 +256,7 @@ namespace Data
             };
             List<BsonDocument> liste = listeIncidents.Aggregate(pipeline).ToList();
 
-            Dictionary<string, int> res = new();
+            Dictionary<string, double> res = new();
 
             foreach(BsonDocument element in liste)
             {
@@ -281,37 +282,37 @@ namespace Data
                 var accesReseaux = borne["accesReseaux"].AsBsonArray;
                 foreach (var item in accesReseaux)
                 {
-                    if (!item["DF"].IsBsonNull) { dfAccesReseaux.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfAccesReseaux.Add(item["DF"].AsInt32); }
                 }
 
                 var routeur = borne["routeur"].AsBsonArray;
                 foreach (var item in routeur)
                 {
-                    if (!item["DF"].IsBsonNull) { dfrouteur.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfrouteur.Add(item["DF"].AsInt32); }
                 }
 
                 var disqueSSD = borne["disqueSSD"].AsBsonArray;
                 foreach (var item in disqueSSD)
                 {
-                    if (!item["DF"].IsBsonNull){dfdisqueSSD.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSSD.Add(item["DF"].AsInt32);}
                 }
 
                 var disqueSAS = borne["disqueSAS"].AsBsonArray;
                 foreach (var item in disqueSAS)
                 {
-                    if (!item["DF"].IsBsonNull){dfdisqueSAS.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSAS.Add(item["DF"].AsInt32); }
                 }
 
                 var serveur = borne["serveur"].AsBsonArray;
                 foreach (var item in serveur)
                 {
-                    if (!item["DF"].IsBsonNull){dfserveur.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfserveur.Add(item["DF"].AsInt32);}
                 }
 
                 var hote = borne["hote"].AsBsonArray;
                 foreach (var item in hote)
                 {
-                    if (!item["DF"].IsBsonNull){dfhote.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfhote.Add(item["DF"].AsInt32);}
                 }
 
             });
@@ -327,6 +328,11 @@ namespace Data
 
             return avgMap;
 
+        }
+
+        public bool IsBewteenTwoDates(DateTime dt, DateTime start, DateTime end)
+        {
+            return dt >= start && dt <= end;
         }
 
     }
