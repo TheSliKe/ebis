@@ -378,17 +378,18 @@ namespace Data
                 { 24, 0 }
             };
 
-            collectionIncidents.Aggregate(pipeline).ToList().ForEach(x => 
+            collectionIncidents.Aggregate(pipeline).ToList().ForEach(x =>
             {
 
 
-                if (!x["nbHRetard"].IsBsonNull) { 
+                if (!x["nbHRetard"].IsBsonNull)
+                {
                     double nbHeure = x["nbHRetard"].AsDouble;
                     if (nbHeure > 0 && nbHeure <= 1)
                     {
                         nonbreParHeure[1] += 1;
-                    } 
-                    else if (nbHeure <= 2) 
+                    }
+                    else if (nbHeure <= 2)
                     {
                         nonbreParHeure[2] += 1;
                     }
@@ -420,7 +421,29 @@ namespace Data
             });
 
             return nonbreParHeure;
-
         }
+        public List<BsonDocument> Entretien80element20(){
+            var listeEntretien= db.GetCollection<BsonDocument>("entretiens");
+
+            PipelineDefinition<BsonDocument, BsonDocument> pipeline = new BsonDocument[]
+            {
+                new BsonDocument("$match", new BsonDocument()
+                        .Add("dateEntretient", new BsonDocument()
+                                .Add("$gte", new BsonDateTime(DateTime.ParseExact("2017-04-01 02:00:00.000+0200", "yyyy-MM-dd HH:mm:ss.fffzzz", CultureInfo.InvariantCulture)))
+                        )),
+                new BsonDocument("$unwind", new BsonDocument()
+                        .Add("path", "$elements.elementRemplacer")
+                        .Add("includeArrayIndex", "elementFiable")
+                        .Add("preserveNullAndEmptyArrays", new BsonBoolean(false))),
+                new BsonDocument("$sortByCount", "$elements.elementRemplacer"),
+                new BsonDocument("$sort", new BsonDocument()
+                        .Add("count", -1.0))
+            };
+            List<BsonDocument> liste = listeEntretien.Aggregate(pipeline).ToList();
+
+            
+            return liste;
+        }
+
     }
 }
