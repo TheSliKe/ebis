@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ebis.Tabs"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1280">
+             d:DesignHeight="900" d:DesignWidth="1280">
     <Grid Margin="0,34,0,0">
 
         <DataGrid Name="dgJournalOperation" AutoGenerateColumns="False" Margin="10,46,10,10">
@@ -22,8 +22,8 @@
                 <ColumnDefinition Width="119*"/>
                 <ColumnDefinition Width="201*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Margin="267,-105,431,115" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="journalOperationRecherche" TextChanged="JournalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="349,-108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="664" Height="26" Grid.ColumnSpan="2"/>
+            <TextBlock Text="Recherche:" Height="20" TextWrapping="Wrap" RenderTransformOrigin="0.19,0.52" Margin="254,-194,444,204" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="journalOperationRecherche" TextChanged="JournalOperationRecherche_TextChanged" HorizontalAlignment="Left" Margin="336,-196,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="664" Height="26" Grid.ColumnSpan="2"/>
         </Grid>
 
     </Grid>

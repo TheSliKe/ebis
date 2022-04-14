@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:charts="clr-namespace:Ebis.Tabs.Charts"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1280">
+             d:DesignHeight="900" d:DesignWidth="1600">
     <Grid>
 
         <TabControl Margin="0,0,0,267">
@@ -27,12 +27,12 @@
 
         <!--<charts:MoyenneFonctionnement Margin="10,234,10,267"/>-->
 
-        <charts:PartIncident Margin="856,471,59,10"/>
+        <charts:PartIncident Margin="710,634,261,0"/>
 
-        <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="165,458,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementsDefectueux" Margin="165,490,953,10"/>
-        <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="478,458,0,0" VerticalAlignment="Top"/>
-        <ListView x:Name="listElementsFiable" Margin="478,490,640,10"/>
+        <Label Content="Top 5 elements defectueux : " HorizontalAlignment="Left" Margin="85,634,0,0" VerticalAlignment="Top" Height="30" Width="176"/>
+        <ListView x:Name="listElementsDefectueux" Margin="85,664,1339,10"/>
+        <Label Content=" Top 5 des éléments les plus fiables : " HorizontalAlignment="Left" Margin="299,636,0,0" VerticalAlignment="Top" Height="29" Width="204"/>
+        <ListView x:Name="listElementsFiable" Margin="299,665,1118,10"/>
 
     </Grid>
 </UserControl>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tabs="clr-namespace:Ebis.Tabs"
         mc:Ignorable="d"
-        Title="Ebis" Height="720" Width="1280">
+        Title="Ebis" Height="900" Width="1600">
     <TabControl>
         <TabItem Header="Tableau De bord">
             <tabs:TableauDeBord/>
