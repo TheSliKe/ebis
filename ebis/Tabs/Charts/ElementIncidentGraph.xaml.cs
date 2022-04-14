@@ -26,7 +26,7 @@ namespace Ebis.Tabs.Charts
 
             int total = 0;
             foreach (BsonDocument elem in element)
-                total = total + elem["count"].AsInt32;
+                total += elem["count"].AsInt32;
 
             ColumnSeriesCollection = new SeriesCollection{};
             ChartValues<double> values = new();
