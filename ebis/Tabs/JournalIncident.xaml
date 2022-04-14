@@ -11,7 +11,7 @@
             <TextBlock Text="Recherche:" TextWrapping="Wrap" Margin="284,5,-284,-5" />
             <TextBox x:Name="journalIncidentRecherche" TextWrapping="Wrap" Width="540" TextChanged="JournalIncidentRecherche_TextChanged" Height="20"/>
         </Grid>
-        <DataGrid x:Name="interventionDataGrid"  AutoGenerateColumns="False" MinHeight="100" Height="669" Margin="10,0,10,10">
+        <DataGrid x:Name="incidentDataGrid"  AutoGenerateColumns="False" MinHeight="100" Height="669" Margin="10,0,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date de l'incident" Binding="{Binding dateIncident}" />
                 <DataGridTextColumn Header="Borne" Binding="{Binding borne}" />

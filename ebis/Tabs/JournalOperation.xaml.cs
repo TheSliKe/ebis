@@ -13,62 +13,47 @@ namespace Ebis.Tabs
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            InitialiseJournalOperationDg();
+            InitialiseJournalOperationTab();
         }
 
-        private void InitialiseJournalOperationDg() 
+        private void InitialiseJournalOperationTab() 
         {
-            List<BsonDocument> operationDb = mongoDatabase.recupererListOperation();
-            List<Operation> operations = new List<Operation>();
 
-            foreach (var line in operationDb)
-            {
-                operations.Add(new Operation()
-                {
-                    Borne = line["borne"].ToString(),
-                    TypeCharge = line["typeCharge"].ToString(),
-                    DateDebut = line["dateHeureDebut"].ToUniversalTime(),
-                    DateFin = line["dateHeureFin"].ToUniversalTime(),
-                    KwhConsomer = line["nbKwHeures"].ToString()
-                });
-            }
-
+            List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation());
             dgJournalOperation.ItemsSource = operations;
+
         }
 
-        private void JournalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) {
+        private static List<Operation> SetListOperation(List<BsonDocument> list)
+        {
+
+            List<Operation> temp = new();
+            list.ForEach(item => {
+                temp.Add(new Operation()
+                {
+                    Borne = item["borne"].ToString(),
+                    TypeCharge = item["typeCharge"].ToString(),
+                    DateDebut = item["dateHeureDebut"].ToUniversalTime(),
+                    DateFin = item["dateHeureFin"].ToUniversalTime(),
+                    KwhConsomer = item["nbKwHeures"].ToString()
+                });
+            });
+            return temp;
+
+        }
+
+            private void JournalOperationRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             
             if (!string.IsNullOrEmpty(journalOperationRecherche.Text))
             {
                 dgJournalOperation.ItemsSource = null;
-                List<Operation> operations = new();
-                mongoDatabase.recupererListOperation(journalOperationRecherche.Text).ForEach(item => {
-                    operations.Add(new Operation()
-                    {
-                        Borne = item["borne"].ToString(),
-                        TypeCharge = item["typeCharge"].ToString(),
-                        DateDebut = item["dateHeureDebut"].ToUniversalTime(),
-                        DateFin = item["dateHeureFin"].ToUniversalTime(),
-                        KwhConsomer = item["nbKwHeures"].ToString()
-                    });
-                });
+                List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation(journalOperationRecherche.Text));
                 dgJournalOperation.ItemsSource = operations;
             }
             else
             {
                 dgJournalOperation.ItemsSource = null;
-                List<Operation> operations = new();
-                mongoDatabase.recupererListOperation().ForEach(item =>
-                {
-                    operations.Add(new Operation()
-                    {
-                        Borne = item["borne"].ToString(),
-                        TypeCharge = item["typeCharge"].ToString(),
-                        DateDebut = item["dateHeureDebut"].ToUniversalTime(),
-                        DateFin = item["dateHeureFin"].ToUniversalTime(),
-                        KwhConsomer = item["nbKwHeures"].ToString()
-                    });
-                });
+                List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation());
                 dgJournalOperation.ItemsSource = operations;
             }
         }

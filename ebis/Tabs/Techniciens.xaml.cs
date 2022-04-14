@@ -55,6 +55,7 @@ namespace Ebis.Tabs
             {
                 string tagJson = ((ListBoxItem)technicienList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
+
                 technicienNom.Text = document["nom"].ToString();
                 technicienPrenom.Text = document["prenom"].ToString();
                 technicienMatricule.Text = document["matricule"].ToString();
@@ -72,8 +73,8 @@ namespace Ebis.Tabs
                     {
                         numeroInter = line["numeroInter"].ToString(),
                         typeInter = line["typeInter"].ToString(),
-                        dateDebut = line["dateDebut"].AsDateTime,
-                        dateFin = line["dateFin"].AsDateTime,
+                        dateDebut = line["dateDebut"].ToUniversalTime(),
+                        dateFin = line["dateFin"].ToUniversalTime()
                     });
                 }
                 technicienInterventionList.ItemsSource = interventions;

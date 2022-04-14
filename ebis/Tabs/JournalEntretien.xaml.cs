@@ -15,18 +15,24 @@ namespace Ebis.Tabs
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            InitialiseEntretienList();
+            DefaultListEntretienData();
         }
 
-        private void InitialiseEntretienList()
+        private void DefaultListEntretienData()
         {
-            List<BsonDocument> listeEntretien = mongoDatabase.recupererListEntretien();
-            listeEntretien.ForEach(item => {
+            SetListEntretienData(mongoDatabase.recupererListEntretien());
+        }
+
+        private void SetListEntretienData(List<BsonDocument> list) 
+        {
+
+            list.ForEach(item => {
                 ListBoxItem listBoxItem = new();
                 listBoxItem.Tag = item;
-                listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
+                listBoxItem.Content = item["dateEntretient"].ToUniversalTime().ToString("dd MMM yyyy") + " - " + item["borne"].AsString;
                 journalEntretienList.Items.Add(listBoxItem);
             });
+
         }
 
         private void JournalEntretienRecherche_TextChanged(object sender, TextChangedEventArgs e)
@@ -34,31 +40,21 @@ namespace Ebis.Tabs
             if (!String.IsNullOrEmpty(journalEntretienRecherche.Text))
             {
                 journalEntretienList.Items.Clear();
-                mongoDatabase.recupererListEntretien(journalEntretienRecherche.Text).ForEach(item =>
-                {
-                    ListBoxItem listBoxItem = new();
-                    listBoxItem.Tag = item;
-                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
-                    journalEntretienList.Items.Add(listBoxItem);
-                });
+
+                SetListEntretienData(mongoDatabase.recupererListEntretien(journalEntretienRecherche.Text));
             }
             else
             {
                 journalEntretienList.Items.Clear();
-                mongoDatabase.recupererListEntretien().ForEach(item =>
-                {
-                    ListBoxItem listBoxItem = new();
-                    listBoxItem.Tag = item;
-                    listBoxItem.Content = item["dateEntretient"].ToUniversalTime() + " - " + item["borne"].AsString;
-                    journalEntretienList.Items.Add(listBoxItem);
-                });
+                DefaultListEntretienData();
             }
         }
 
         private void JournalEntretienList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            borneMapEntretien.Children.Clear();
+
             journalEntretienBorne.Content = "";
+            borneMapEntretien.Children.Clear();
             listElementVerifier.Items.Clear();
             listElementRemplacer.Items.Clear();
 
@@ -66,20 +62,13 @@ namespace Ebis.Tabs
             {
                 string tagJson = ((ListBoxItem)journalEntretienList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
-               
-                journalEntretienBorne.Content = document["borne"];
-                double latitude = Convert.ToDouble(
-                   document["latitude"].AsString,
-                   System.Globalization.CultureInfo.InvariantCulture);
-                double longitude = Convert.ToDouble(
-                    document["longitude"].AsString,
-                    System.Globalization.CultureInfo.InvariantCulture);
-                Pushpin pin = new();
-                pin.Location = new Location(latitude, longitude);
-                borneMapEntretien.Children.Add(pin);
-                Location loc = new Location(document["latitude"].ToDouble(), document["longitude"].ToDouble());
-                borneMapEntretien.SetView(loc, 12);
 
+                Location loc = new(document["latitude"].ToDouble(), document["longitude"].ToDouble());
+                Pushpin pin = new();
+                pin.Location = loc;
+
+                borneMapEntretien.Children.Add(pin);
+                borneMapEntretien.SetView(loc, 12);
 
                 matricule.Text = document["technicien"]["matricule"].ToString();
                 nom.Text = document["technicien"]["nom"].ToString();

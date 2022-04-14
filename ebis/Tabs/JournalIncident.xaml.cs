@@ -1,5 +1,6 @@
 ﻿using Data;
 using Ebis.Object;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -17,51 +18,40 @@ namespace Ebis.Tabs
 
         private void InitialiseIncidentTab()
         {
-            List<Incident> incidents = new();
-            mongoDatabase.recupererListIncidents().ForEach(item => {
-                incidents.Add(new Incident()
+            List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents());
+            incidentDataGrid.ItemsSource = incidents;
+
+        }
+
+        private static List<Incident> SetListIncident(List<BsonDocument> list)
+        {
+
+            List<Incident> temp = new();
+            list.ForEach(item => {
+                temp.Add(new Incident()
                 {
-                    dateIncident = item["dateIncident"].AsDateTime,
+                    dateIncident = item["dateIncident"].ToUniversalTime(),
                     borne = item["borne"].ToString(),
                     typeIncidents = item["typeIncidents"].ToString(),
                     detailsIncidents = item["detailsIncidents"].ToString(),
                 });
             });
-            interventionDataGrid.ItemsSource = incidents;
-
+            return temp;
         }
 
         private void JournalIncidentRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             if (!string.IsNullOrEmpty(journalIncidentRecherche.Text))
             {
-                interventionDataGrid.ItemsSource = null;
-                List<Incident> incidents = new();
-                mongoDatabase.recupererListIncidents(journalIncidentRecherche.Text).ForEach(item => {
-                    incidents.Add(new Incident()
-                    {
-                        dateIncident = item["dateIncident"].AsDateTime,
-                        borne = item["borne"].ToString(),
-                        typeIncidents = item["typeIncidents"].ToString(),
-                        detailsIncidents = item["detailsIncidents"].ToString(),
-                    });
-                }); 
-                interventionDataGrid.ItemsSource = incidents;
+                incidentDataGrid.ItemsSource = null;
+
+                List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents(journalIncidentRecherche.Text));
+                incidentDataGrid.ItemsSource = incidents;
             }
             else
             {
-                interventionDataGrid.ItemsSource = null;
-                List<Incident> incidents = new();
-                mongoDatabase.recupererListIncidents().ForEach(item =>
-                {
-                    incidents.Add(new Incident()
-                    {
-                        dateIncident = item["dateIncident"].AsDateTime,
-                        borne = item["borne"].ToString(),
-                        typeIncidents = item["typeIncidents"].ToString(),
-                        detailsIncidents = item["detailsIncidents"].ToString(),
-                    });
-                }); 
-                interventionDataGrid.ItemsSource = incidents;
+                incidentDataGrid.ItemsSource = null;
+                List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents());
+                incidentDataGrid.ItemsSource = incidents;
             }
         }
     }

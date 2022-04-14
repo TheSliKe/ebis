@@ -50,8 +50,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
                         <DataGridTextColumn Header="Type d'intervention" Binding="{Binding typeInter}" />
-                        <DataGridTextColumn Header="Date de debut" Binding="{Binding DateDebut}" />
-                        <DataGridTextColumn Header="date de fin" Binding="{Binding DateFin}" />
+                        <DataGridTextColumn Header="Date de debut" Binding="{Binding dateDebut}" />
+                        <DataGridTextColumn Header="date de fin" Binding="{Binding dateFin}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

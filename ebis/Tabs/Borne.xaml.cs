@@ -16,52 +16,45 @@ namespace Ebis.Tabs
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            InitialiseBorneTab();
+            DefaultListBorneData();
         }
 
-        private void InitialiseBorneTab() 
+        private void DefaultListBorneData() 
         {
-            mongoDatabase.recupererListBorne().ForEach(item => {
+
+            SetListBorneDataAndSetPin(mongoDatabase.recupererListBorne());
+
+        }
+
+        private void SetListBorneDataAndSetPin(List<BsonDocument> list)
+        {
+           list.ForEach(item => {
                 ListBoxItem listBoxItem = new();
                 listBoxItem.Tag = item;
                 listBoxItem.Content = item["numero"].AsString;
                 listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
                 borneList.Items.Add(listBoxItem);
-                double latitude = Convert.ToDouble(
-                    item["station"]["latitude"].AsString,
-                    System.Globalization.CultureInfo.InvariantCulture);
-                double longitude = Convert.ToDouble(
-                    item["station"]["longitude"].AsString,
-                    System.Globalization.CultureInfo.InvariantCulture);
+
                 Pushpin pin = new();
-                pin.Location = new(latitude, longitude);
+                pin.Location = new(item["station"]["latitude"].ToDouble(), item["station"]["longitude"].ToDouble());
                 borneMap.Children.Add(pin);
             });
         }
 
         private void BorneRecherche_TextChanged(object sender, TextChangedEventArgs e) 
         {
+
+            borneMap.Children.Clear();
+
             if (!string.IsNullOrEmpty(borneRecherche.Text))
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne(borneRecherche.Text).ForEach(item => {
-                    ListBoxItem listBoxItem = new();
-                    listBoxItem.Tag = item;
-                    listBoxItem.Content = item["numero"].AsString;
-                    listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
-                    borneList.Items.Add(listBoxItem);
-                });
+                SetListBorneDataAndSetPin(mongoDatabase.recupererListBorne(borneRecherche.Text));
             } 
             else
             {
                 borneList.Items.Clear();
-                mongoDatabase.recupererListBorne().ForEach(item => {
-                    ListBoxItem listBoxItem = new();
-                    listBoxItem.Tag = item;
-                    listBoxItem.Content = item["numero"].AsString;
-                    listBoxItem.MouseDoubleClick += new MouseButtonEventHandler(new RoutedEventHandler(BorneInfoButton_Click));
-                    borneList.Items.Add(listBoxItem);
-                });
+                DefaultListBorneData();
             }
             borneInfoButton.IsEnabled = false;
         }
@@ -83,9 +76,7 @@ namespace Ebis.Tabs
             {
                 string tagJson = ((ListBoxItem)borneList.SelectedItem).Tag.ToString();
                 BsonDocument document = BsonDocument.Parse(tagJson);
-                Location loc = new(
-                    document["station"]["latitude"].ToDouble(),
-                    document["station"]["longitude"].ToDouble());
+                Location loc = new(document["station"]["latitude"].ToDouble(), document["station"]["longitude"].ToDouble());
                 borneMap.SetView(loc, 12);
                 borneInfoButton.IsEnabled = true;
             }

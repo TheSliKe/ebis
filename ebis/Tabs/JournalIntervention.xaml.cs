@@ -17,61 +17,40 @@ namespace Ebis.Tabs
         }
         private void InitialiseInterventionTab()
         {
-            List<Intervention> interventions = new List<Intervention>();
-            mongoDatabase.recupererListIntervention().ForEach(item => {
-                interventions.Add(new Intervention()
+            List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention());
+            InterventionDataGrid.ItemsSource = interventions;
+        }
+
+        private static List<Intervention> SetListIntervention(List<BsonDocument> list)
+        {
+            List<Intervention> temp = new();
+            list.ForEach(item => {
+                temp.Add(new Intervention()
                 {
                     numeroInter = item["numeroInter"].ToString(),
                     typeInter = item["typeInter"].ToString(),
-                    dateDebut = item["dateDebut"].AsDateTime,
-                    dateFin = item["dateFin"].AsDateTime,
+                    dateDebut = item["dateDebut"].ToUniversalTime(),
+                    dateFin = item["dateFin"].ToUniversalTime(),
                     borne = item["borne"].ToString(),
                     secteur = item["secteur"].ToString(),
                     detailInter = item["detailInter"].ToString(),
                     technicien = item["technicien"]["nom"].ToString() + " " + item["technicien"]["prenom"].ToString()
                 });
             });
-            InterventionDataGrid.ItemsSource = interventions;
-
+            return temp;
         }
+
         private void InterventionRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             if (!string.IsNullOrEmpty(InterventionRecherche.Text))
             {
                 InterventionDataGrid.ItemsSource = null;
-                List<Intervention> interventions = new();
-                mongoDatabase.recupererListIntervention(InterventionRecherche.Text).ForEach(item => {
-                    interventions.Add(new Intervention()
-                    {
-                        numeroInter = item["numeroInter"].ToString(),
-                        typeInter = item["typeInter"].ToString(),
-                        dateDebut = item["dateDebut"].AsDateTime,
-                        dateFin = item["dateFin"].AsDateTime,
-                        borne = item["borne"].ToString(),
-                        secteur = item["secteur"].ToString(),
-                        detailInter = item["detailInter"].ToString(),
-                        technicien = item["technicien"]["nom"].ToString() + " " + item["technicien"]["prenom"].ToString()
-                    });
-                });
+                List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention(InterventionRecherche.Text));
                 InterventionDataGrid.ItemsSource = interventions;
             }
             else
             {
                 InterventionDataGrid.ItemsSource = null;
-                List<Intervention> interventions = new();
-                mongoDatabase.recupererListIntervention().ForEach(item =>
-                {
-                    interventions.Add(new Intervention()
-                    {
-                        numeroInter = item["numeroInter"].ToString(),
-                        typeInter = item["typeInter"].ToString(),
-                        dateDebut = item["dateDebut"].AsDateTime,
-                        dateFin = item["dateFin"].AsDateTime,
-                        borne = item["borne"].ToString(),
-                        secteur = item["secteur"].ToString(),
-                        detailInter = item["detailInter"].ToString(),
-                        technicien = item["technicien"]["nom"].ToString() + " " + item["technicien"]["prenom"].ToString()
-                    });
-                });
+                List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention());
                 InterventionDataGrid.ItemsSource = interventions;
             }
         }
