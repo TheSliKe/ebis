@@ -4,24 +4,11 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Ebis.Tabs.Charts
 {
-    /// <summary>
-    /// Logique d'interaction pour TauxIncident.xaml
-    /// </summary>
     public partial class TauxIncident : UserControl
     {
 
@@ -37,7 +24,7 @@ namespace Ebis.Tabs.Charts
 
         private void InitTauxIncidentGraph()
         {
-            SetDataTauxIncidentGraph(mongoDatabase.statTauxIncident(dateDebut.DisplayDate, dateFin.DisplayDate));
+            SetDataTauxIncidentGraph(mongoDatabase.StatTauxIncident(dateDebut.DisplayDate, dateFin.DisplayDate));
 
         }
 
@@ -67,8 +54,6 @@ namespace Ebis.Tabs.Charts
                 }
             };
 
-           
-
             Labels = new[] { "0-1h", "1-2h", "2-4h", "4-8h", "8-12h", "12-16h", "16-24h", "+24h" };
             Formatter = value => value.ToString("N");
 
@@ -85,7 +70,7 @@ namespace Ebis.Tabs.Charts
         private void DateChangement(object sender, RoutedEventArgs e)
         {
             SeriesCollection.Clear();
-            Dictionary<int, int> tauxIncidentParHoraire = mongoDatabase.statTauxIncident(dateDebut.DisplayDate, dateFin.DisplayDate);
+            Dictionary<int, int> tauxIncidentParHoraire = mongoDatabase.StatTauxIncident(dateDebut.DisplayDate, dateFin.DisplayDate);
             SeriesCollection.Add(new ColumnSeries
             {
                 Title = "Taux d'incidents en retard : ",

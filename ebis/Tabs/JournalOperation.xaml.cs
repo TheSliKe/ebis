@@ -19,7 +19,7 @@ namespace Ebis.Tabs
         private void InitialiseJournalOperationTab() 
         {
 
-            List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation());
+            List<Operation> operations = SetListOperation(mongoDatabase.RecupererListOperation());
             dgJournalOperation.ItemsSource = operations;
 
         }
@@ -47,13 +47,13 @@ namespace Ebis.Tabs
             if (!string.IsNullOrEmpty(journalOperationRecherche.Text))
             {
                 dgJournalOperation.ItemsSource = null;
-                List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation(journalOperationRecherche.Text));
+                List<Operation> operations = SetListOperation(mongoDatabase.RecupererListOperation(journalOperationRecherche.Text));
                 dgJournalOperation.ItemsSource = operations;
             }
             else
             {
                 dgJournalOperation.ItemsSource = null;
-                List<Operation> operations = SetListOperation(mongoDatabase.recupererListOperation());
+                List<Operation> operations = SetListOperation(mongoDatabase.RecupererListOperation());
                 dgJournalOperation.ItemsSource = operations;
             }
         }

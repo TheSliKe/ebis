@@ -8,24 +8,24 @@
         Title="InfoBornePopup" Height="450" Width="800">
     <Grid>
         <Label Content="Date de mise en service : " HorizontalAlignment="Left" Margin="60,45,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="miseEnService" HorizontalAlignment="Left" Margin="209,47,0,0" VerticalAlignment="Top"/>
+        <DatePicker IsEnabled="False" x:Name="miseEnService" HorizontalAlignment="Left" Margin="209,47,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Date de derniere révision : " HorizontalAlignment="Left" Margin="60,76,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="derniereRevision" HorizontalAlignment="Left" Margin="209,78,0,0" VerticalAlignment="Top"/>
+        <DatePicker IsEnabled="False" x:Name="derniereRevision" HorizontalAlignment="Left" Margin="209,78,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Adresse :" HorizontalAlignment="Left" Margin="60,120,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="adresse" HorizontalAlignment="Left" Margin="209,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        <TextBox IsEnabled="False" x:Name="adresse" HorizontalAlignment="Left" Margin="209,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
 
         <Label Content="Ville :" HorizontalAlignment="Left" Margin="60,146,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ville" HorizontalAlignment="Left" Margin="209,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        <TextBox IsEnabled="False" x:Name="ville" HorizontalAlignment="Left" Margin="209,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
 
         <Label Content="Code Postal :" HorizontalAlignment="Left" Margin="60,172,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="codePostal" HorizontalAlignment="Left" Margin="209,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        <TextBox IsEnabled="False" x:Name="codePostal" HorizontalAlignment="Left" Margin="209,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
 
         <DataGrid Name="dgTypeCharge" AutoGenerateColumns="False" Margin="66,232,66,37">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Libelle" Binding="{Binding Libelle}" />
-                <DataGridTextColumn Header="Puissance" Binding="{Binding Puissance}" />
+                <DataGridTextColumn Width="334" Header="Libelle" Binding="{Binding Libelle}" />
+                <DataGridTextColumn Width="334" Header="Puissance" Binding="{Binding Puissance}" />
             </DataGrid.Columns>
         </DataGrid>
 

@@ -10,11 +10,11 @@
 
         <DataGrid Name="dgJournalOperation" AutoGenerateColumns="False" Margin="10,46,10,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Borne" Binding="{Binding Borne}" />
-                <DataGridTextColumn Header="Type de charge" Binding="{Binding TypeCharge}" />
-                <DataGridTextColumn Header="Date de debut" Binding="{Binding DateDebut}" />
-                <DataGridTextColumn Header="date de fin" Binding="{Binding DateFin}" />
-                <DataGridTextColumn Header="kwh consomé" Binding="{Binding KwhConsomer}" />
+                <DataGridTextColumn Width="252" Header="Borne" Binding="{Binding Borne}" />
+                <DataGridTextColumn Width="252" Header="Type de charge" Binding="{Binding TypeCharge}" />
+                <DataGridTextColumn Width="252" Header="Date de debut" Binding="{Binding DateDebut}" />
+                <DataGridTextColumn Width="252" Header="date de fin" Binding="{Binding DateFin}" />
+                <DataGridTextColumn Width="252" Header="kwh consomé" Binding="{Binding KwhConsomer}" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid Height="30" Margin="10,-2,-10,415">

@@ -24,7 +24,7 @@ namespace Data
             var borneCollection = db.GetCollection<BsonDocument>("bornes");
             return borneCollection.Find(new BsonDocument()).ToList();
         }
-        public List<BsonDocument> recupererListBorne(string sender)
+        public List<BsonDocument> RecupererListBorne(string sender)
         {
             var borneCollection = db.GetCollection<BsonDocument>("bornes");
             var filter = Builders<BsonDocument>.Filter.Or(
@@ -39,12 +39,12 @@ namespace Data
             return borneCollection.Find(filter).ToList();
 
         }
-        public List<BsonDocument> recupererListTechniciens()
+        public List<BsonDocument> RecupererListTechniciens()
         {
             var technicienCollection = db.GetCollection<BsonDocument>("techniciens");
             return technicienCollection.Find(new BsonDocument()).ToList();
         }
-        public List<BsonDocument> recupererListTechniciens(string sender)
+        public List<BsonDocument> RecupererListTechniciens(string sender)
         {
             var technicienCollection = db.GetCollection<BsonDocument>("techniciens");
             var filter = Builders<BsonDocument>.Filter.Or(
@@ -57,7 +57,7 @@ namespace Data
             );
             return technicienCollection.Find(filter).ToList();
         }
-        public List<BsonDocument> recupererListEntretien()
+        public List<BsonDocument> RecupererListEntretien()
         {
             var entretiensCollection = db.GetCollection<BsonDocument>("entretiens");
             return entretiensCollection.Find(new BsonDocument()).ToList();
@@ -73,12 +73,12 @@ namespace Data
             );
             return entretiensCollection.Find(filter).ToList();
         }
-        public List<BsonDocument> recupererListIntervention()
+        public List<BsonDocument> RecupererListIntervention()
         {
             var interventionCollection = db.GetCollection<BsonDocument>("interventions");
             return interventionCollection.Find(new BsonDocument()).ToList();
         }
-        public List<BsonDocument> recupererListIntervention(string sender)
+        public List<BsonDocument> RecupererListIntervention(string sender)
         {
             var interventionCollection = db.GetCollection<BsonDocument>("interventions");
             var filter = Builders<BsonDocument>.Filter.Or(
@@ -93,12 +93,12 @@ namespace Data
             );
             return interventionCollection.Find(filter).ToList();
         }
-        public List<BsonDocument> recupererListOperation()
+        public List<BsonDocument> RecupererListOperation()
         {
             var operationCollection = db.GetCollection<BsonDocument>("operationsRecharge");
             return operationCollection.Find(new BsonDocument()).ToList();
         }
-        public List<BsonDocument> recupererListOperation(string sender)
+        public List<BsonDocument> RecupererListOperation(string sender)
         {
             var operationCollection = db.GetCollection<BsonDocument>("operationsRecharge");
             var filter = Builders<BsonDocument>.Filter.Or(
@@ -111,12 +111,12 @@ namespace Data
             );
             return operationCollection.Find(filter).ToList();
         }
-        public List<BsonDocument> recupererListIncidents()
+        public List<BsonDocument> RecupererListIncidents()
         {
             var incidentCollection = db.GetCollection<BsonDocument>("incidents");
             return incidentCollection.Find(new BsonDocument()).ToList();
         }
-        public List<BsonDocument> recupererListIncidents(string sender)
+        public List<BsonDocument> RecupererListIncidents(string sender)
         {
             var operationCollection = db.GetCollection<BsonDocument>("incidents");
             var filter = Builders<BsonDocument>.Filter.Or(
@@ -266,7 +266,7 @@ namespace Data
             return res;
 
         }
-        public Dictionary<string, double> statMoyenneDureeFonctionnement()
+        public Dictionary<string, double> StatMoyenneDureeFonctionnement()
         {
             var bornes = recupererListBorne();
 
@@ -335,7 +335,7 @@ namespace Data
             return dt >= DateTime.Now.AddYears(-5) && dt <= DateTime.Now;
         }
 
-        public Dictionary<int, int> statTauxIncident(DateTime debut, DateTime fin)
+        public Dictionary<int, int> StatTauxIncident(DateTime debut, DateTime fin)
         {
 
             var collectionIncidents = db.GetCollection<BsonDocument>("incidents");

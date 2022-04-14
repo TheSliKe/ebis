@@ -14,14 +14,14 @@
             </Grid>
             <DataGrid x:Name="InterventionDataGrid" AutoGenerateColumns="False" Margin="10,10,10,10" Height="647">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
-                    <DataGridTextColumn Header="Type d'intervention" Binding="{Binding typeInter}" />
-                    <DataGridTextColumn Header="Date de debut" Binding="{Binding dateDebut}" />
-                    <DataGridTextColumn Header="date de fin" Binding="{Binding dateFin}" />
-                    <DataGridTextColumn Header="Détail de l'intervention" Binding="{Binding detailInter}" />
-                    <DataGridTextColumn Header="Secteur" Binding="{Binding secteur}" />
-                    <DataGridTextColumn Header="Borne" Binding="{Binding borne}" />
-                    <DataGridTextColumn Header="Technicien" Binding="{Binding technicien}" />
+                    <DataGridTextColumn Width="155" Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
+                    <DataGridTextColumn Width="155" Header="Type d'intervention" Binding="{Binding typeInter}" />
+                    <DataGridTextColumn Width="155" Header="Date de debut" Binding="{Binding dateDebut}" />
+                    <DataGridTextColumn Width="155" Header="date de fin" Binding="{Binding dateFin}" />
+                    <DataGridTextColumn Width="155" Header="Détail de l'intervention" Binding="{Binding detailInter}" />
+                    <DataGridTextColumn Width="155" Header="Secteur" Binding="{Binding secteur}" />
+                    <DataGridTextColumn Width="155" Header="Borne" Binding="{Binding borne}" />
+                    <DataGridTextColumn Width="155" Header="Technicien" Binding="{Binding technicien}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

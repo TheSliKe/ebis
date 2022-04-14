@@ -29,13 +29,13 @@
         <Label Grid.Column="1" Content="Technicien : " HorizontalAlignment="Left" Margin="15,11,0,0" VerticalAlignment="Top"/>
 
         <Label Grid.Column="1" Content="Matricule :" HorizontalAlignment="Left" Margin="48,37,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="matricule" Grid.Column="1" HorizontalAlignment="Left" Margin="160,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
+        <TextBox IsEnabled="False" x:Name="matricule" Grid.Column="1" HorizontalAlignment="Left" Margin="160,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
         <Label Grid.Column="1" Content="Nom :" HorizontalAlignment="Left" Margin="48,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="nom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
+        <TextBox IsEnabled="False" x:Name="nom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
         <Label Grid.Column="1" Content="Prenom :" HorizontalAlignment="Left" Margin="48,89,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
+        <TextBox IsEnabled="False" x:Name="prenom" Grid.Column="1" HorizontalAlignment="Left" Margin="160,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="330"/>
 
         <m:Map x:Name="borneMapEntretien" 
             CredentialsProvider="Ahjo8qAj6yKH6vbdAuKqtBeRu2tor8PkhHgRfXL4CbNRLmUn-FVJFqZIRjA4mfH-" 
@@ -48,7 +48,6 @@
 
         <Label Grid.Column="1" Content="Element remplacé :" HorizontalAlignment="Left" Margin="310,139,0,0" VerticalAlignment="Top" Width="154"/>
         <ListView x:Name="listElementRemplacer" Grid.Column="1" Margin="310,165,416,10"/>
-
 
     </Grid>
 </UserControl>

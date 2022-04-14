@@ -20,7 +20,7 @@ namespace Ebis.Tabs
 
         private void DefaultListEntretienData()
         {
-            SetListEntretienData(mongoDatabase.recupererListEntretien());
+            SetListEntretienData(mongoDatabase.RecupererListEntretien());
         }
 
         private void SetListEntretienData(List<BsonDocument> list) 

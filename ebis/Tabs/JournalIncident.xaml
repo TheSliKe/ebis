@@ -13,10 +13,10 @@
         </Grid>
         <DataGrid x:Name="incidentDataGrid"  AutoGenerateColumns="False" MinHeight="100" Height="669" Margin="10,0,10,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date de l'incident" Binding="{Binding dateIncident}" />
-                <DataGridTextColumn Header="Borne" Binding="{Binding borne}" />
-                <DataGridTextColumn Header="Type d'incident" Binding="{Binding typeIncidents}" />
-                <DataGridTextColumn Header="Détail de l'incident" Binding="{Binding detailsIncidents}" />
+                <DataGridTextColumn Width="315" Header="Date de l'incident" Binding="{Binding dateIncident}" />
+                <DataGridTextColumn Width="315" Header="Borne" Binding="{Binding borne}" />
+                <DataGridTextColumn Width="315" Header="Type d'incident" Binding="{Binding typeIncidents}" />
+                <DataGridTextColumn Width="315" Header="Détail de l'incident" Binding="{Binding detailsIncidents}" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

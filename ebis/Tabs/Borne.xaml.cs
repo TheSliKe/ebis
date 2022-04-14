@@ -1,7 +1,6 @@
 ﻿using Data;
 using Microsoft.Maps.MapControl.WPF;
 using MongoDB.Bson;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,9 +20,7 @@ namespace Ebis.Tabs
 
         private void DefaultListBorneData() 
         {
-
             SetListBorneDataAndSetPin(mongoDatabase.recupererListBorne());
-
         }
 
         private void SetListBorneDataAndSetPin(List<BsonDocument> list)
@@ -49,7 +46,7 @@ namespace Ebis.Tabs
             if (!string.IsNullOrEmpty(borneRecherche.Text))
             {
                 borneList.Items.Clear();
-                SetListBorneDataAndSetPin(mongoDatabase.recupererListBorne(borneRecherche.Text));
+                SetListBorneDataAndSetPin(mongoDatabase.RecupererListBorne(borneRecherche.Text));
             } 
             else
             {
