@@ -151,7 +151,7 @@ namespace Data
                     )
                     .Add("avg", new BsonDocument()
                             .Add("$sum", 0.2)
-                    )   
+                    )
             )};
 
             PipelineDefinition<BsonDocument, BsonDocument> pipeline6Years = new BsonDocument[]
@@ -258,7 +258,7 @@ namespace Data
 
             Dictionary<string, double> res = new();
 
-            foreach(BsonDocument element in liste)
+            foreach (BsonDocument element in liste)
             {
                 res.Add(element["_id"].AsString, element["count"].AsInt32);
             }
@@ -266,7 +266,7 @@ namespace Data
             return res;
 
         }
-        public Dictionary<string, double> statMoyenneDureeFonctionnement() 
+        public Dictionary<string, double> statMoyenneDureeFonctionnement()
         {
             var bornes = recupererListBorne();
 
@@ -294,25 +294,25 @@ namespace Data
                 var disqueSSD = borne["disqueSSD"].AsBsonArray;
                 foreach (var item in disqueSSD)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSSD.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfdisqueSSD.Add(item["DF"].AsInt32); }
                 }
 
                 var disqueSAS = borne["disqueSAS"].AsBsonArray;
                 foreach (var item in disqueSAS)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSAS.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfdisqueSAS.Add(item["DF"].AsInt32); }
                 }
 
                 var serveur = borne["serveur"].AsBsonArray;
                 foreach (var item in serveur)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfserveur.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfserveur.Add(item["DF"].AsInt32); }
                 }
 
                 var hote = borne["hote"].AsBsonArray;
                 foreach (var item in hote)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfhote.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfhote.Add(item["DF"].AsInt32); }
                 }
 
             });
@@ -333,6 +333,29 @@ namespace Data
         public bool IsBewteenTwoDates(DateTime dt, DateTime start, DateTime end)
         {
             return dt >= start && dt <= end;
+        }
+
+        public List<BsonDocument> Entretien80element20(){
+            var listeEntretien= db.GetCollection<BsonDocument>("entretiens");
+
+            PipelineDefinition<BsonDocument, BsonDocument> pipeline = new BsonDocument[]
+            {
+                new BsonDocument("$match", new BsonDocument()
+                        .Add("dateEntretient", new BsonDocument()
+                                .Add("$gte", new BsonDateTime(DateTime.ParseExact("2017-04-01 02:00:00.000+0200", "yyyy-MM-dd HH:mm:ss.fffzzz", CultureInfo.InvariantCulture)))
+                        )),
+                new BsonDocument("$unwind", new BsonDocument()
+                        .Add("path", "$elements.elementRemplacer")
+                        .Add("includeArrayIndex", "elementFiable")
+                        .Add("preserveNullAndEmptyArrays", new BsonBoolean(false))),
+                new BsonDocument("$sortByCount", "$elements.elementRemplacer"),
+                new BsonDocument("$sort", new BsonDocument()
+                        .Add("count", -1.0))
+            };
+            List<BsonDocument> liste = listeEntretien.Aggregate(pipeline).ToList();
+
+            
+            return liste;
         }
 
     }

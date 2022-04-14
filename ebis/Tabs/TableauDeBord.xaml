@@ -15,6 +15,9 @@
             <TabItem Header="MoyenneFonctionnement">
                 <charts:MoyenneFonctionnement/>
             </TabItem>
+            <TabItem Header="80-20">
+                <charts:ElementIncidentGraph/>
+            </TabItem>
         </TabControl>
 
         <!--<charts:MoyenneAccident Margin="10,10,10,491"/>-->
