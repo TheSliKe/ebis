@@ -151,7 +151,7 @@ namespace Data
                     )
                     .Add("avg", new BsonDocument()
                             .Add("$sum", 0.2)
-                    )   
+                    )
             )};
 
             PipelineDefinition<BsonDocument, BsonDocument> pipeline6Years = new BsonDocument[]
@@ -258,7 +258,7 @@ namespace Data
 
             Dictionary<string, double> res = new();
 
-            foreach(BsonDocument element in liste)
+            foreach (BsonDocument element in liste)
             {
                 res.Add(element["_id"].AsString, element["count"].AsInt32);
             }
@@ -266,7 +266,7 @@ namespace Data
             return res;
 
         }
-        public Dictionary<string, double> statMoyenneDureeFonctionnement() 
+        public Dictionary<string, double> statMoyenneDureeFonctionnement()
         {
             var bornes = recupererListBorne();
 
@@ -282,37 +282,37 @@ namespace Data
                 var accesReseaux = borne["accesReseaux"].AsBsonArray;
                 foreach (var item in accesReseaux)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfAccesReseaux.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfAccesReseaux.Add(item["DF"].AsInt32); }
                 }
 
                 var routeur = borne["routeur"].AsBsonArray;
                 foreach (var item in routeur)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) { dfrouteur.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfrouteur.Add(item["DF"].AsInt32); }
                 }
 
                 var disqueSSD = borne["disqueSSD"].AsBsonArray;
                 foreach (var item in disqueSSD)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSSD.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfdisqueSSD.Add(item["DF"].AsInt32); }
                 }
 
                 var disqueSAS = borne["disqueSAS"].AsBsonArray;
                 foreach (var item in disqueSAS)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfdisqueSAS.Add(item["DF"].AsInt32); }
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfdisqueSAS.Add(item["DF"].AsInt32); }
                 }
 
                 var serveur = borne["serveur"].AsBsonArray;
                 foreach (var item in serveur)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfserveur.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfserveur.Add(item["DF"].AsInt32); }
                 }
 
                 var hote = borne["hote"].AsBsonArray;
                 foreach (var item in hote)
                 {
-                    if (!item["DF"].IsBsonNull && IsBewteenTwoDates(item["dateRemplacement"].ToUniversalTime(), DateTime.Now.AddYears(-5), DateTime.Now)) {dfhote.Add(item["DF"].AsInt32);}
+                    if (!item["DF"].IsBsonNull && IsValide(item["dateRemplacement"].ToUniversalTime())) { dfhote.Add(item["DF"].AsInt32); }
                 }
 
             });
@@ -330,10 +330,97 @@ namespace Data
 
         }
 
-        public bool IsBewteenTwoDates(DateTime dt, DateTime start, DateTime end)
+        private bool IsValide(DateTime dt)
         {
-            return dt >= start && dt <= end;
+            return dt >= DateTime.Now.AddYears(-5) && dt <= DateTime.Now;
         }
 
+        public Dictionary<int, int> statTauxIncident(DateTime debut, DateTime fin)
+        {
+
+            var collectionIncidents = db.GetCollection<BsonDocument>("incidents");
+
+            PipelineDefinition<BsonDocument, BsonDocument> pipeline = new BsonDocument[]
+            {
+                 new BsonDocument("$match", new BsonDocument()
+                        .Add("dateIncident", new BsonDocument()
+                                .Add("$gte", new BsonDateTime(debut))
+                                .Add("$lte", new BsonDateTime(fin))
+                        )),
+                new BsonDocument("$project", new BsonDocument()
+                    .Add("nbHRetard", new BsonDocument()
+                        .Add("$subtract", new BsonArray()
+                            .Add(new BsonDocument()
+                                .Add("$divide", new BsonArray()
+                                    .Add(new BsonDocument()
+                                        .Add("$subtract", new BsonArray()
+                                            .Add("$dateResolution")
+                                            .Add("$dateIncident")
+                                        )
+                                    )
+                                .Add(3600000.0)
+                            )
+                        )
+                    .Add(6.0)
+                    )
+                ))
+            };
+
+            Dictionary<int, int> nonbreParHeure = new()
+            {
+                { 0, 0 },
+                { 1, 0 },
+                { 2, 0 },
+                { 4, 0 },
+                { 8, 0 },
+                { 12, 0 },
+                { 16, 0 },
+                { 24, 0 }
+            };
+
+            collectionIncidents.Aggregate(pipeline).ToList().ForEach(x => 
+            {
+
+
+                if (!x["nbHRetard"].IsBsonNull) { 
+                    double nbHeure = x["nbHRetard"].AsDouble;
+                    if (nbHeure > 0 && nbHeure <= 1)
+                    {
+                        nonbreParHeure[1] += 1;
+                    } 
+                    else if (nbHeure <= 2) 
+                    {
+                        nonbreParHeure[2] += 1;
+                    }
+                    else if (nbHeure <= 4)
+                    {
+                        nonbreParHeure[4] += 1;
+                    }
+                    else if (nbHeure <= 8)
+                    {
+                        nonbreParHeure[8] += 1;
+                    }
+                    else if (nbHeure <= 12)
+                    {
+                        nonbreParHeure[12] += 1;
+                    }
+                    else if (nbHeure <= 16)
+                    {
+                        nonbreParHeure[16] += 1;
+                    }
+                    else if (nbHeure <= 24)
+                    {
+                        nonbreParHeure[24] += 1;
+                    }
+                    else if (nbHeure > 24)
+                    {
+                        nonbreParHeure[0] += 1;
+                    }
+                }
+            });
+
+            return nonbreParHeure;
+
+        }
     }
 }
