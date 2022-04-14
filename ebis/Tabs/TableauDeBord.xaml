@@ -8,9 +8,18 @@
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
 
-        <charts:MoyenneAccident Margin="10,10,10,491"/>
+        <TabControl Margin="0,0,0,267">
+            <TabItem Header="Moyenne Accident">
+                <charts:MoyenneAccident/>
+            </TabItem>
+            <TabItem Header="MoyenneFonctionnement">
+                <charts:MoyenneFonctionnement/>
+            </TabItem>
+        </TabControl>
 
-        <charts:MoyenneFonctionnement Margin="10,234,10,267"/>
+        <!--<charts:MoyenneAccident Margin="10,10,10,491"/>-->
+
+        <!--<charts:MoyenneFonctionnement Margin="10,234,10,267"/>-->
 
         <charts:PartIncident Margin="394,490,394,10"/>
 
