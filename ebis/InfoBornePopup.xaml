@@ -14,15 +14,15 @@
         <DatePicker x:Name="derniereRevision" HorizontalAlignment="Left" Margin="209,78,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Adresse :" HorizontalAlignment="Left" Margin="60,120,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="adresse" HorizontalAlignment="Left" Margin="123,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="adresse" HorizontalAlignment="Left" Margin="209,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
 
         <Label Content="Ville :" HorizontalAlignment="Left" Margin="60,146,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ville" HorizontalAlignment="Left" Margin="103,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ville" HorizontalAlignment="Left" Margin="209,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
 
         <Label Content="Code Postal :" HorizontalAlignment="Left" Margin="60,172,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="codePostal" HorizontalAlignment="Left" Margin="143,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        
-        <DataGrid Name="dgTypeCharge" AutoGenerateColumns="False" Margin="500,84,126,233">
+        <TextBox x:Name="codePostal" HorizontalAlignment="Left" Margin="209,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+
+        <DataGrid Name="dgTypeCharge" AutoGenerateColumns="False" Margin="66,232,66,37">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Libelle" Binding="{Binding Libelle}" />
                 <DataGridTextColumn Header="Puissance" Binding="{Binding Puissance}" />
