@@ -12,11 +12,14 @@
             <TabItem Header="Moyenne Accident">
                 <charts:MoyenneAccident/>
             </TabItem>
-            <TabItem Header="MoyenneFonctionnement">
+            <TabItem Header="Moyenne Fonctionnement">
                 <charts:MoyenneFonctionnement/>
             </TabItem>
             <TabItem Header="80-20">
                 <charts:ElementIncidentGraph/>
+            </TabItem>
+            <TabItem Header="Taux incident">
+                <charts:TauxIncident/>
             </TabItem>
         </TabControl>
 
