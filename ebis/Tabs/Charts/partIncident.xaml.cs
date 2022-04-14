@@ -1,7 +1,6 @@
 ﻿using Data;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -28,7 +27,6 @@ namespace Ebis.Tabs.Charts
         private void Chart_OnDataClick(object sender, ChartPoint chartpoint)
         {
             var chart = (PieChart)chartpoint.ChartView;
-
            
             foreach (PieSeries series in chart.Series)
                 series.PushOut = 0;

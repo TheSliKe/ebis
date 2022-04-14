@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Ebis.Tabs.Charts
 {
-    /// <summary>
-    /// Logique d'interaction pour MoyenneAccident.xaml
-    /// </summary>
     public partial class MoyenneAccident : UserControl
     {
 
@@ -35,10 +32,10 @@ namespace Ebis.Tabs.Charts
         {
             InitializeComponent();
             mongoDatabase = new MongoDatabase();
-            initGraphMoyenneAccident();
+            InitGraphMoyenneAccident();
         }
 
-        private void initGraphMoyenneAccident()
+        private void InitGraphMoyenneAccident()
         {
             double[] avgValue = mongoDatabase.StatMoyenneAccident();
 

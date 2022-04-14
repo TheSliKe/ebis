@@ -18,7 +18,7 @@ namespace Ebis.Tabs
 
         private void InitialiseIncidentTab()
         {
-            List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents());
+            List<Incident> incidents = SetListIncident(mongoDatabase.RecupererListIncidents());
             incidentDataGrid.ItemsSource = incidents;
 
         }
@@ -44,13 +44,13 @@ namespace Ebis.Tabs
             {
                 incidentDataGrid.ItemsSource = null;
 
-                List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents(journalIncidentRecherche.Text));
+                List<Incident> incidents = SetListIncident(mongoDatabase.RecupererListIncidents(journalIncidentRecherche.Text));
                 incidentDataGrid.ItemsSource = incidents;
             }
             else
             {
                 incidentDataGrid.ItemsSource = null;
-                List<Incident> incidents = SetListIncident(mongoDatabase.recupererListIncidents());
+                List<Incident> incidents = SetListIncident(mongoDatabase.RecupererListIncidents());
                 incidentDataGrid.ItemsSource = incidents;
             }
         }

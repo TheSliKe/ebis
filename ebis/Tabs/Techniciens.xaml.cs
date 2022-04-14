@@ -17,7 +17,7 @@ namespace Ebis.Tabs
         }
         private void InitialiseTechnicienTab()
         {
-            List<BsonDocument> listeTechnicien = mongoDatabase.recupererListTechniciens();
+            List<BsonDocument> listeTechnicien = mongoDatabase.RecupererListTechniciens();
 
             listeTechnicien.ForEach(item => {
                 ListBoxItem listBoxItem = new();
@@ -29,7 +29,7 @@ namespace Ebis.Tabs
         private void TechnicienRecherche_TextChanged(object sender, TextChangedEventArgs e) {
             if (!string.IsNullOrEmpty(technicienRecherche.Text)) {
                 technicienList.Items.Clear();
-                mongoDatabase.recupererListTechniciens(technicienRecherche.Text).ForEach( item =>
+                mongoDatabase.RecupererListTechniciens(technicienRecherche.Text).ForEach( item =>
                 {
                     ListBoxItem listBoxItem = new();
                     listBoxItem.Tag = item;
@@ -40,7 +40,7 @@ namespace Ebis.Tabs
             else
             {
                 technicienList.Items.Clear();
-                mongoDatabase.recupererListTechniciens().ForEach(item =>
+                mongoDatabase.RecupererListTechniciens().ForEach(item =>
                {
                    ListBoxItem listBoxItem = new();
                    listBoxItem.Tag = item;

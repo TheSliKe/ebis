@@ -17,7 +17,7 @@ namespace Ebis.Tabs
         }
         private void InitialiseInterventionTab()
         {
-            List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention());
+            List<Intervention> interventions = SetListIntervention(mongoDatabase.RecupererListIntervention());
             InterventionDataGrid.ItemsSource = interventions;
         }
 
@@ -44,13 +44,13 @@ namespace Ebis.Tabs
             if (!string.IsNullOrEmpty(InterventionRecherche.Text))
             {
                 InterventionDataGrid.ItemsSource = null;
-                List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention(InterventionRecherche.Text));
+                List<Intervention> interventions = SetListIntervention(mongoDatabase.RecupererListIntervention(InterventionRecherche.Text));
                 InterventionDataGrid.ItemsSource = interventions;
             }
             else
             {
                 InterventionDataGrid.ItemsSource = null;
-                List<Intervention> interventions = SetListIntervention(mongoDatabase.recupererListIntervention());
+                List<Intervention> interventions = SetListIntervention(mongoDatabase.RecupererListIntervention());
                 InterventionDataGrid.ItemsSource = interventions;
             }
         }

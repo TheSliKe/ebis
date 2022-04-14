@@ -37,21 +37,21 @@
                     <TextBlock Text="Telephone" Height="20" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel  Margin="100,0,0,21" Grid.ColumnSpan="2">
-                    <TextBox x:Name="technicienNom" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373" />
-                    <TextBox x:Name="technicienPrenom" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienMatricule" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienAdresse" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienVille" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienCodePostal" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienSecteur" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
-                    <TextBox x:Name="technicienTelephone" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienNom" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373" />
+                    <TextBox IsEnabled="False" x:Name="technicienPrenom" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienMatricule" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienAdresse" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienVille" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienCodePostal" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienSecteur" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
+                    <TextBox IsEnabled="False" x:Name="technicienTelephone" Height="20" TextWrapping="Wrap" Grid.Column="1" Width="373"/>
                 </StackPanel>
                 <DataGrid x:Name="technicienInterventionList" Grid.ColumnSpan="2" Margin="10,181,0,-516"  AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
-                        <DataGridTextColumn Header="Type d'intervention" Binding="{Binding typeInter}" />
-                        <DataGridTextColumn Header="Date de debut" Binding="{Binding dateDebut}" />
-                        <DataGridTextColumn Header="date de fin" Binding="{Binding dateFin}" />
+                        <DataGridTextColumn Width="237" Header="Numéro d'intervention" Binding="{Binding numeroInter}" />
+                        <DataGridTextColumn Width="237" Header="Type d'intervention" Binding="{Binding typeInter}" />
+                        <DataGridTextColumn Width="237" Header="Date de debut" Binding="{Binding dateDebut}" />
+                        <DataGridTextColumn Width="237" Header="date de fin" Binding="{Binding dateFin}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
