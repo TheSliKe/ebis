@@ -245,7 +245,7 @@ namespace Data
 
             return incidentsEntretien.Aggregate(pipeline).ToList();
         }
-        public List<BsonDocument> StatPartNiveauIncident()
+        public Dictionary<string, int> StatPartNiveauIncident()
         {
             var listeIncidents = db.GetCollection<BsonDocument>("incidents");
 
@@ -253,7 +253,17 @@ namespace Data
             {
                 new BsonDocument("$sortByCount", "$niveauIncident")
             };
-            return listeIncidents.Aggregate(pipeline).ToList();
+            List<BsonDocument> liste = listeIncidents.Aggregate(pipeline).ToList();
+
+            Dictionary<string, int> res = new();
+
+            foreach(BsonDocument element in liste)
+            {
+                res.Add(element["_id"].AsString, element["count"].AsInt32);
+            }
+
+            return res;
+
         }
         public Dictionary<string, double> statMoyenneDureeFonctionnement() 
         {
